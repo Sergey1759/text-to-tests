@@ -24,17 +24,15 @@ router.get('/', function(req, res, next) {
 
  router.get('/some',midleware, async function(req, res, next) {
   let user = await api.myfind(req.session.user.id);
-  let groupdate = await group.get('ipzs2017');
-  console.log(groupdate);
-  let obj = groupdate[0].students;
+  let groupdate = await group.get(user.group);
   let classs = [];
-  for (const id of obj) {
+  for (const id of groupdate.students) {
     if(id != req.session.user.id){
     let buf = await api.myfind(id);
     classs.push(buf);
     }
   }
-  res.render('some', {user,classs});
+  res.render('some', {user, classs});
  });
 
 function midleware (req, res, next) {
