@@ -23,7 +23,6 @@ router.get('/', function(req, res, next) {
 
  router.get('/some',midleware, async function(req, res, next) {
   let user = await api.myfind(req.session.user.id);
-  console.log(user)
   res.render('some', user);
  });
 

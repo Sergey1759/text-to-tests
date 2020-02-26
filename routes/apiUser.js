@@ -11,6 +11,7 @@ exports.createUser = function(userData){
  lastname: userData.lastname,
  group: userData.group,
  email: userData.email,
+ photo: userData.photo,
  password: hash(userData.password)
  }
  return new User(user).save()

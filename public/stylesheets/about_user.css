@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+.about_user{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    background-color: cornflowerblue;
+    color: cornsilk;
+    font-family: "Poppins", sans-serif;
+}
+.about_user div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin: 10px;
+}
+.about_user div input{
+    margin: 0px;
+}
