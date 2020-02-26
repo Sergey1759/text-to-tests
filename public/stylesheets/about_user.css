@@ -18,3 +18,27 @@
 .about_user div input{
     margin: 0px;
 }
+.other {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    background-color: cornflowerblue;
+    color: cornsilk;
+    font-family: "Poppins", sans-serif;
+    flex-wrap: wrap;
+}
+.other div{
+    width: 70vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    background-color: cornflowerblue;
+    color: cornsilk;
+    font-family: "Poppins", sans-serif;
+    margin: 10px;
+}
+.other div div{
+    margin: 10px;
+}

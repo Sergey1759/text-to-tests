@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var api = require('./apiUser')
+var group = require('./apiGroup')
 
 
 /* GET home page. */
@@ -23,7 +24,17 @@ router.get('/', function(req, res, next) {
 
  router.get('/some',midleware, async function(req, res, next) {
   let user = await api.myfind(req.session.user.id);
-  res.render('some', user);
+  let groupdate = await group.get('ipzs2017');
+  console.log(groupdate);
+  let obj = groupdate[0].students;
+  let classs = [];
+  for (const id of obj) {
+    if(id != req.session.user.id){
+    let buf = await api.myfind(id);
+    classs.push(buf);
+    }
+  }
+  res.render('some', {user,classs});
  });
 
 function midleware (req, res, next) {

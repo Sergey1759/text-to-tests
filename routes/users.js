@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var api = require('./apiUser')
+var group = require('./apiGroup')
  
 /* Создание пользователя */
 router.post('/login', function(req, res, next) {
@@ -20,10 +21,16 @@ router.post('/login', function(req, res, next) {
  })
  
 });
-router.post('/', function(req, res, next) {
+router.post('/', async function(req, res, next) { //async
   api.createUser(req.body)
-  	.then(function(result){
-    console.log(req.session)
+  	.then(async function(result){ //async
+    console.log(req.session);
+    // let groupdate = await group.get(req.body.group);
+    // if(groupdate) {
+    //   let classs = groupdate[0];
+    //   group.students.push(req.body.id);
+    //   group.save();
+    // }
     res.redirect('/')
   	})
   	.catch(function(err){
