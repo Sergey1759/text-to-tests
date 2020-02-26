@@ -21,16 +21,9 @@ router.post('/login', function(req, res, next) {
  })
  
 });
-router.post('/', async function(req, res, next) { //async
+router.post('/', async function(req, res, next) { 
   api.createUser(req.body)
-  	.then(async function(result){ //async
-    console.log(req.session);
-    // let groupdate = await group.get(req.body.group);
-    // if(groupdate) {
-    //   let classs = groupdate[0];
-    //   group.students.push(req.body.id);
-    //   group.save();
-    // }
+  	.then(async function(result){ 
     res.redirect('/')
   	})
   	.catch(function(err){
