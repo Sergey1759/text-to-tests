@@ -7,3 +7,8 @@ exports.get = function(name) {
         return Promise.resolve(doc);
       });
 }
+exports.updateStudents = function(name,arr) {
+  return Group.findOneAndUpdate({'name' : name},{ 'students' : arr}, function (err, doc) {
+      return Promise.resolve(doc);
+    });
+}

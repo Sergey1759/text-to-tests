@@ -21,9 +21,13 @@ router.post('/login', function(req, res, next) {
  })
  
 });
-router.post('/', async function(req, res, next) { 
+router.post('/', function(req, res, next) { 
   api.createUser(req.body)
   	.then(async function(result){ 
+    let classs = await group.get(req.body.group);
+    let students = classs.students;
+    students.push((result._id).toString());
+    await group.updateStudents(req.body.group,students);
     res.redirect('/')
   	})
   	.catch(function(err){
