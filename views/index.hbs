@@ -1,0 +1,38 @@
+<div class="auth_conteiner">
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+            <!-- Tabs Titles -->
+            <h2 id="SignIn" class="active"> Sign In </h2>
+            <h2 id="SignUp"class="inactive underlineHover">Sign Up </h2>
+
+            <!-- Icon -->
+            <div class="fadeIn first">
+            <img src="https://forexi.ru/wp-content/uploads/2019/02/teacher1.png" id="icon" alt="User Icon" />
+            </div>
+
+            <!-- Login Form -->
+        
+            <form method='post', action='/users/login' id="SignInForm">
+            <input type="text" id="login" class="fadeIn second" name="email" placeholder="email">
+            <input type="password" id="password" class="fadeIn third" name="password" placeholder="password">
+            <input type="submit" class="fadeIn fourth" value="Log In">
+            </form>
+
+            <!-- Login auth -->
+        
+            <form method="post" action="/users/" id="SignUpForm" style="display: none;">
+                <input type="text" name="name" placeholder="name"/>
+                <input type="text" name="lastname" placeholder="lastname"/>
+                <input type="text" name="group" placeholder="group"/>
+                <input type="text" name="email" placeholder="email"/>
+                <input type="password" name="password" placeholder="password"/>
+            <input type="submit" /></form>
+
+            <!-- Remind Passowrd -->
+            {{!-- <div id="formFooter">
+            <a class="underlineHover" href="#">Forgot Password?</a>
+            </div> --}}
+
+        </div>
+    </div>
+</div> 
