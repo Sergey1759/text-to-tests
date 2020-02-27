@@ -31,8 +31,9 @@ router.post('/', function(req, res, next) {
     res.redirect('/')
   	})
   	.catch(function(err){
-   if (err.toJSON().code == 11000){
-   res.status(500).send("This email already exist")
+   if (err){
+   //  res.status(500).send("This email already exist");
+   res.redirect('/');
    } 
    console.log(err)
   	})
