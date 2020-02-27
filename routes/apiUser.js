@@ -6,6 +6,7 @@ var User = require('./database')
 // User API
  
 exports.createUser = function(userData){
+if(!userData.photo) userData.photo = 'https://img.icons8.com/clouds/2x/user.png';
  var user = {
  name: userData.name,
  lastname: userData.lastname,
