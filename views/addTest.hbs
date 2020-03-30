@@ -1,0 +1,13 @@
+<h1>add test</h1>
+
+    
+<form action="/upload" method="post" enctype="multipart/form-data">
+    <select name="upload_test_groups" id="grups">
+        {{#each allgroups}}
+        <option value={{this.name}}>{{this.name}}</option>
+        {{/each}}
+  </select>
+  <input type="text" name="test_name" placeholder="назва предмету">
+  <input type="file" name="test" />
+  <input type="submit">
+</form>

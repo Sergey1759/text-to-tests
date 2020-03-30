@@ -1,0 +1,16 @@
+<h1>Users control</h1>
+<div class="other">
+    {{#each all_users}}
+    <div>
+        <div class="user_img">
+        <img src={{this.photo}} alt="user">
+    </div>
+    <div class="user_info">
+        <div>{{this.name}}</div>
+        <div>{{this.lastname}}</div>
+        <div>{{this.email}}</div>
+        <div>{{this.group}}</div>
+    </div>
+    </div>
+    {{/each}}
+    </div>

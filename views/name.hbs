@@ -1,0 +1,16 @@
+<div class="btn_upload_res"> submit </div>
+<div class="test_conteiner">
+    <h1 class="test">Назва предмету {{test.name}}</h1>
+    <input id="test_ID" name="test_ID" type="hidden" value={{test._id}}>
+    {{#each test.test}}
+    <form id={{this.id}} class="test_form">
+        <div>{{this.questions}}</div>
+        {{#each this.answer}}
+        <div class="conteiner_answe">
+            <input type="radio" name='name' id={{this.id}}>
+            <label for="{{this.id}}"> {{this.answe}}</label>
+        </div>
+        {{/each}}
+    </form>
+    {{/each}}
+</div>
