@@ -10,28 +10,35 @@
     </div>
     <div>
         <form action="/users/logout" method="POST">
-            <input type="submit"value="Log Out">
+            <input type="submit" value="Log Out">
         </form>
     </div>
 </div>
-
+{{#if classs}}
 <div class="my_class">
     <h1>Мої одногрупники</h1>
     <div class="other">
-    {{#each classs}}
-    <div>
-        <div class="user_img">
-        <img src={{this.photo}} alt="user">
-    </div>
-    <div class="user_info">
-        <div>{{this.name}}</div>
-        <div>{{this.lastname}}</div>
-        <div>{{this.email}}</div>
-        <div>{{this.group}}</div>
-    </div>
-    </div>
-    {{/each}}
-    </div>
+        {{#each classs}}
+        <div>
+            <div class="user_img">
+                <img src={{this.photo}} alt="user">
+            </div>
+            <div class="user_info">
+                <div>{{this.name}}</div>
+                <div>{{this.lastname}}</div>
+                <div>{{this.email}}</div>
+                <div>{{this.group}}</div>
+            </div>
+        </div>
+        {{/each}}
     </div>
 </div>
+{{else}}
+Нажаль зараз немає одногрупників
+{{/if}}
 
+<nav>
+    <a href="/my_tests">
+        <div class="nav_item">Мої тести</div>
+    </a>
+</nav>

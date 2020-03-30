@@ -1,39 +1,55 @@
-<div class="auth_conteiner">
-    <div class="wrapper fadeInDown">
-        <div id="formContent">
-            <!-- Tabs Titles -->
-            <h2 id="SignIn" class="active"> Sign In </h2>
-            <h2 id="SignUp"class="inactive underlineHover">Sign Up </h2>
-
-            <!-- Icon -->
-            <div class="fadeIn first">
-            <img src="https://forexi.ru/wp-content/uploads/2019/02/teacher1.png" id="icon" alt="User Icon" />
-            </div>
-
-            <!-- Login Form -->
-        
-            <form method='post', action='/users/login' id="SignInForm">
-            <input type="text" id="login" class="fadeIn second" name="email" placeholder="email">
-            <input type="password" id="password" class="fadeIn third" name="password" placeholder="password">
-            <input type="submit" class="fadeIn fourth" value="Log In">
-            </form>
-
-            <!-- Login auth -->
-        
-            <form method="post" action="/users/" id="SignUpForm" style="display: none;">
-                <input type="text" name="name" placeholder="name"/>
-                <input type="text" name="lastname" placeholder="lastname"/>
-                <input type="text" name="group" placeholder="group"/>
-                <input type="text" name="email" placeholder="email"/>
-                <input type="text" name="photo" placeholder="photo URL"/>
-                <input type="password" name="password" placeholder="password"/>
-            <input type="submit" /></form>
-
-            <!-- Remind Passowrd -->
-            {{!-- <div id="formFooter">
-            <a class="underlineHover" href="#">Forgot Password?</a>
-            </div> --}}
-
+<div class="wrap_container_auth">
+    <div class="container_auth">
+        <div class="tabs">
+            <div id="tab_sign_in">Вход</div>
+            <div id="tab_sign_up">регистрация</div>
         </div>
+        <div class="container_for_form">
+            <div class="SignIn">
+                <form method='post' action='/users/login' id="SignInForm">
+                    <div class="danger_placeholder">
+                        <input type="text" id="login" name="email" placeholder="email">
+                    </div>
+
+                    <input type="password" id="password" name="password" placeholder="password">
+                    <div class="for_btn_flex">
+                        <input type="submit" class="btn_submit" value="Войти">
+                    </div>
+
+                </form>
+            </div>
+            <div class="SignUp">
+                <form method="post" action="/users/" id="SignUpForm">
+                    <input type="text" name="name" placeholder="name" />
+                    <input type="text" name="lastname" placeholder="lastname" />
+                    <input type="text" name="group" placeholder="group" />
+                    <input type="text" name="email" placeholder="email" />
+                    <input type="text" name="photo" placeholder="photo URL" />
+                    <input type="password" name="password" placeholder="password" />
+                    <div class="for_btn_flex">
+                        <input type="submit" class="btn_submit" value="Зарегистрироваться">
+                    </div>
+                </form>
+            </div>
+        </div>
+
     </div>
-</div> 
+</div>
+<div class="decor2">
+    <div class="decor">
+        <div class="text-decor">
+            Проходи тесты, качай скиллы
+        </div>
+        <img src="../images/test.png" alt="">
+    </div>
+</div>
+
+<div class="logo">
+    <div id="m">m</div>
+    <div id="y">y</div>
+    <div id="t1">t</div>
+    <div id="e">e</div>
+    <div id="s1">s</div>
+    <div id="t2">t</div>
+    <div id="s2">s</div>
+</div>

@@ -4,7 +4,11 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-// var mongoose = require("mongoose")
+var mongoose = require("mongoose")
+
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useFindAndModify', true);
+
 var session = require('express-session')
 var MongoStore = require('connect-mongo')(session);
 

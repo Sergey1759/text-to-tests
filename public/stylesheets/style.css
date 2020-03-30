@@ -6,3 +6,34 @@
 a {
   color: #00B7FF;
 } */
+@import url('https://fonts.googleapis.com/css?family=Inter&display=swap');
+.test_conteiner{
+  font-family:  'Inter', sans-serif;
+  width: 75%;
+  margin: auto;
+}
+.test_conteiner .test_form{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+.test_form label{
+  line-height: 1em;
+}
+.conteiner_answe{
+  display: flex;
+  align-items: center;
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+.test_conteiner h1{
+  text-align: center;
+}
+.btn_upload_res{
+  position: fixed;
+  right: 0;
+  top: 0;
+  background-color: crimson;
+  color: aliceblue;
+  padding: 10px;
+}
