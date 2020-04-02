@@ -1,5 +1,36 @@
-<div class="about_user">
-    <div class="user_img">
+<div class="nav_container">
+    <div class="nav_left">
+        MyTests
+    </div>
+    <div class="nav_center">
+        <nav>
+            <a href="/my_tests">
+                <div class="nav_item">Мои тесты</div>
+            </a>
+            <a href="/my_tests">
+                <div class="nav_item">Мои результаты</div>
+            </a>
+            <a href="/my_tests">
+                <div class="nav_item">Мои одногрупники</div>
+            </a>
+            <a href="/chat">
+                <div class="nav_item">Чат</div>
+            </a>
+        </nav>
+    </div>
+    <div class="nav_right">
+        <div class="user_name">
+            {{user.name}} {{user.lastname}}
+        </div>
+        <div class="user_img">
+            <img src={{user.photo}} alt="user">
+        </div>
+        <div class="sub_right">
+            <div>Настройки</div>
+            <div id="logout">Выйти</div>
+        </div>
+    </div>
+    {{!-- <div class="user_img">
         <img src={{user.photo}} alt="user">
     </div>
     <div class="user_info">
@@ -12,7 +43,7 @@
         <form action="/users/logout" method="POST">
             <input type="submit" value="Log Out">
         </form>
-    </div>
+    </div> --}}
 </div>
 {{#if classs}}
 <div class="my_class">

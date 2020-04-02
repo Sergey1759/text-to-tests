@@ -5,16 +5,24 @@ var User = require('./UserModel')
 
 
 exports.createUser = function (userData) {
-  var user = {
-    name: userData.name,
-    lastname: userData.lastname,
-    group: userData.group,
-    email: userData.email,
-    photo: userData.photo,
-    role: 'user',
-    password: hash(userData.password)
+  let user_local = User.findOne({
+    email: userData.email
+  });
+  if (user_local) {
+    return Promise.reject(false);
+  } else {
+    var user = {
+      name: userData.name,
+      lastname: userData.lastname,
+      group: userData.group,
+      email: userData.email,
+      photo: userData.photo,
+      role: 'user',
+      password: hash(userData.password)
+    }
+    return new User(user).save()
   }
-  return new User(user).save()
+
 }
 
 exports.checkUser = function (userData) {
