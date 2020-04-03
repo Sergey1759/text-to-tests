@@ -6,35 +6,12 @@ var multer_ = require("./multer");
 var apiTest = require("./apiTest");
 var apiTestResult = require("./apiTestResult");
 
-var app = express();
-var http = require("http").createServer(app);
-var io = require("socket.io")(http);
-http.listen(8080, "127.0.0.1");
+var ApiMessage = require("./ApiMessage");
+var ApiRooms = require("./ApiRooms");
+
+var ApiSocket = require("./ApiSocket");
 
 
-io.on('connection', function (socket) {
-  console.log("A user is connected");
-});
-
-io.on('connection', function (socket) {
-  socket.on('chat message', function (msg) {
-    console.log('message: ' + msg);
-  });
-});
-io.emit('some event', {
-  someProperty: 'some value',
-  otherProperty: 'other value'
-}); // This will emit the event to all connected sockets
-
-io.on('connection', function (socket) {
-  socket.broadcast.emit('hi');
-});
-
-io.on('connection', function (socket) {
-  socket.on('chat message', function (msg) {
-    io.emit('chat message', msg);
-  });
-});
 
 /* GET home page. */
 router.get("/", function (req, res, next) {
@@ -221,17 +198,20 @@ router.post("/upload_test_result", midleware, async function (req, res, next) {
     await apiTestResult.insertIdAttempt(isCreateResult._id, 1);
     await api.insertIdRESULT(req.session.user.id, buf_user_result);
   }
-
   // console.log(req.body.idTest)
   // await api.delete_result(req.session.user.id);
-
   res.send({
     m: "hi"
   });
 });
 
 router.get("/chat", midleware, async function (req, res, next) {
-  res.render("chat");
+  
+  res.render("chat", {
+    massage
+  });
 });
+
+
 
 module.exports = router;
