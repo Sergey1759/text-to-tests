@@ -118,7 +118,6 @@
 //     }
 // });
 
-
 // let SignUpForm = new Forms('SignUpForm');
 // SignUpForm.submit(async (elem) => {
 //     let inputs = SignUpForm.getInputs();
@@ -157,3 +156,4 @@
 //         console.log('s')
 //     }
 // });
+let m = {};
