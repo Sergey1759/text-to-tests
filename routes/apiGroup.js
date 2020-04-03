@@ -2,6 +2,7 @@ var mongoose = require('mongoose')
 var db = mongoose.connect("mongodb+srv://sergey:root@cluster0-ppek4.mongodb.net/test")
 var Group = require('./ModelGroup')
 
+
 function get(name) {
   return Group.findOne({
     'name': name

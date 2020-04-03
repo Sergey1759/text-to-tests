@@ -1,0 +1,29 @@
+let form = document.getElementsByTagName('form')[0];
+let socket = io('http://localhost:8080');
+// let room = form.id;
+
+const user = {
+    user: document.getElementById('userID').value,
+    room: document.getElementById('RoomID').value
+}
+
+socket.emit("user_join", user, (data) => {
+    console.log(data)
+})
+socket.on("newMessage", (data) => {
+    let messages = document.getElementById('messages');
+    let li = document.createElement('li');
+    li.innerText = data.text;
+    messages.appendChild(li);
+})
+
+form.addEventListener('submit', e => {
+    e.preventDefault();
+    let m = document.getElementById('input_submit');
+    socket.emit('CreateMessage', {
+        user: user.user,
+        text: m.value,
+        room: user.room
+    });
+    m.value = ''
+})

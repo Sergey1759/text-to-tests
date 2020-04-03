@@ -4,17 +4,27 @@ var db = mongoose.connect("mongodb+srv://sergey:root@cluster0-ppek4.mongodb.net/
 var User = require('./UserModel')
 
 
-exports.createUser = function (userData) {
-  var user = {
-    name: userData.name,
-    lastname: userData.lastname,
-    group: userData.group,
-    email: userData.email,
-    photo: userData.photo,
-    role: 'user',
-    password: hash(userData.password)
+exports.createUser = async function (userData) {
+  let user_local = await User.findOne({
+    email: userData.email
+  });
+  if (user_local) {
+    console.log('user_local')
+    console.log(user_local)
+    return Promise.reject(false);
+  } else {
+    var user = {
+      name: userData.name,
+      lastname: userData.lastname,
+      group: userData.group,
+      email: userData.email,
+      photo: userData.photo,
+      role: 'user',
+      password: hash(userData.password)
+    }
+    return new User(user).save()
   }
-  return new User(user).save()
+
 }
 
 exports.checkUser = function (userData) {

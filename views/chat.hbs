@@ -1,0 +1,18 @@
+<style>
+    li {
+        color: white;
+        font-size: 30px;
+    }
+</style>
+<input type="hidden" id="userID" value={{userID}}>
+<input type="hidden" id="RoomID" value={{RoomID}}>
+<ul id="messages">
+    {{#each massage}}
+    <li>{{this.massage}}</li>
+    {{/each}}
+</ul>
+<form action="">
+    <input id="input_submit" autocomplete="off" /><button>Send</button>
+</form>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.dev.js"></script>
+<script src="/javascripts/socket.js"></script>

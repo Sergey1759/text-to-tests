@@ -5,13 +5,20 @@
             <div id="tab_sign_up">регистрация</div>
         </div>
         <div class="container_for_form">
+
             <div class="SignIn">
+                {{!-- <h3>{{this.m}}</h3> --}}
                 <form method='post' action='/users/login' id="SignInForm">
-                    <div class="danger_placeholder">
+                    <div class="error_login">
+                        asdas
+                    </div>
+                    <div>
                         <input type="text" id="login" name="email" placeholder="email">
                     </div>
+                    <div>
+                        <input type="password" id="password" name="password" placeholder="password">
+                    </div>
 
-                    <input type="password" id="password" name="password" placeholder="password">
                     <div class="for_btn_flex">
                         <input type="submit" class="btn_submit" value="Войти">
                     </div>
@@ -20,12 +27,31 @@
             </div>
             <div class="SignUp">
                 <form method="post" action="/users/" id="SignUpForm">
-                    <input type="text" name="name" placeholder="name" />
-                    <input type="text" name="lastname" placeholder="lastname" />
-                    <input type="text" name="group" placeholder="group" />
-                    <input type="text" name="email" placeholder="email" />
-                    <input type="text" name="photo" placeholder="photo URL" />
-                    <input type="password" name="password" placeholder="password" />
+                    <div>
+                        <input type="text" name="name" placeholder="Имя"
+                            alt=" asdasdasdasda asd asdasd as a sdas da s" />
+                    </div>
+
+                    <div>
+                        <input type="text" name="lastname" placeholder="Фамилия" />
+                    </div>
+
+                    <div>
+                        <input type="text" name="group" placeholder="Група" />
+                    </div>
+
+                    <div>
+                        <input type="text" name="email" placeholder="email" />
+                    </div>
+
+                    <div>
+                        <input type="password" name="password" placeholder="пароль" />
+                    </div>
+
+                    <div>
+                        <input type="password" name="password_2" placeholder="повторите пароль" />
+                    </div>
+
                     <div class="for_btn_flex">
                         <input type="submit" class="btn_submit" value="Зарегистрироваться">
                     </div>

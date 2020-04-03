@@ -1,44 +1,137 @@
-@import url('https://fonts.googleapis.com/css?family=Poppins');
-.about_user{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    background-color: cornflowerblue;
-    color: cornsilk;
-    font-family: "Poppins", sans-serif;
+@import url("https://fonts.googleapis.com/css?family=Oswald&display=swap");
+
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url('../images/Pattern.png');
+
 }
-.about_user div{
+
+.nav_container {
+    width: 100%;
+    height: 70px;
+    background-color: rgb(0, 87, 146);
+    font-family: "Oswald", sans-serif;
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
     align-items: center;
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.nav_left {
+    text-align: center;
+    width: 10%;
+    color: white;
+    font-size: 2em;
+    box-sizing: border-box;
+}
+
+.nav_center {
+    display: flex;
+    justify-content: center;
+    width: 75%;
+    box-sizing: border-box;
+}
+
+.nav_center nav {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    width: 50%;
+    color: white;
+    font-size: 1em;
+    box-sizing: border-box;
+}
+
+.nav_center nav a {
+    text-decoration: none;
+    color: white;
+}
+
+.nav_right {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 15%;
+    color: white;
+    font-size: 1.3em;
+    box-sizing: border-box;
+    position: relative;
+    margin-right: 50px;
+    cursor: pointer;
+}
+
+.nav_right img {
+    width: 40px;
+    height: 40px;
+}
+
+.sub_right {
+    display: none;
+    background-color: rgba(255, 255, 255, 0.836);
+    color: rgb(255, 255, 255);
+    background-image: url('../images/Pattern-.jpg');
+    box-shadow: inset 200px 200px 130px 200px rgba(0, 0, 0, 0.507);
+    background-position: center;
+    background-size: cover;
+    z-index: -1;
+    width: 100%;
+    top: 70px;
+    position: absolute;
+    border-left: 2px solid rgb(255, 255, 255);
+    border-bottom: 2px solid rgb(255, 255, 255);
+    border-right: 2px solid rgb(255, 255, 255);
+    border-radius: 0 0 10px 10px;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.sub_right div {
+    width: 50%;
+    box-sizing: border-box;
     margin: 10px;
 }
-.about_user div input{
-    margin: 0px;
+
+.to_anim_sub {
+    animation-name: to_anim_sub;
+    animation-iteration-count: 1;
+    animation-duration: 0.3s;
+    animation-timing-function: ease-in-out;
 }
-.other {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    background-color: cornflowerblue;
-    color: cornsilk;
-    font-family: "Poppins", sans-serif;
-    flex-wrap: wrap;
+
+.from_anim_sub {
+    animation-name: from_anim_sub;
+    animation-iteration-count: 1;
+    animation-duration: 0.3s;
+    animation-timing-function: ease-in-out;
 }
-.other div{
-    width: 70vw;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    background-color: cornflowerblue;
-    color: cornsilk;
-    font-family: "Poppins", sans-serif;
-    margin: 10px;
+
+@keyframes to_anim_sub {
+    0% {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0px);
+        opacity: 1;
+    }
 }
-.other div div{
-    margin: 10px;
+
+@keyframes from_anim_sub {
+    0% {
+        transform: translateY(0px);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
 }
