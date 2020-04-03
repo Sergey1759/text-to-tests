@@ -1,5 +1,5 @@
 let form = document.getElementsByTagName('form')[0];
-let socket = io('http://https://cryptic-tundra-22516.herokuapp.com:8080');
+let socket = io('http://localhost:8080');
 // let room = form.id;
 
 const user = {
