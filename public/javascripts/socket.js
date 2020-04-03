@@ -3,8 +3,8 @@ let socket = io('http://localhost:8080');
 // let room = form.id;
 
 const user = {
-    user: 'sergey',
-    room: '1'
+    user: document.getElementById('userID').value,
+    room: document.getElementById('RoomID').value
 }
 
 socket.emit("user_join", user, (data) => {
@@ -20,6 +20,10 @@ socket.on("newMessage", (data) => {
 form.addEventListener('submit', e => {
     e.preventDefault();
     let m = document.getElementById('input_submit');
-    socket.emit('CreateMessage', m.value);
+    socket.emit('CreateMessage', {
+        user: user.user,
+        text: m.value,
+        room: user.room
+    });
     m.value = ''
 })

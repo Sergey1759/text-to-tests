@@ -48,6 +48,7 @@
   box-sizing: border-box;
   text-align: center;
   transition: ease-out 0.3s;
+  cursor: pointer;
 }
 
 .tabs div:first-child {

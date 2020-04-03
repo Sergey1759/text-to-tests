@@ -4,11 +4,13 @@ var db = mongoose.connect("mongodb+srv://sergey:root@cluster0-ppek4.mongodb.net/
 var User = require('./UserModel')
 
 
-exports.createUser = function (userData) {
-  let user_local = User.findOne({
+exports.createUser = async function (userData) {
+  let user_local = await User.findOne({
     email: userData.email
   });
   if (user_local) {
+    console.log('user_local')
+    console.log(user_local)
     return Promise.reject(false);
   } else {
     var user = {

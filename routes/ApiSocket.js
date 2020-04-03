@@ -25,9 +25,7 @@ io.on('connection', socket => {
     });
 
     socket.on('CreateMessage', data => {
-        socket.emit('newMessage', {
-            text: data + 'Server'
-        })
+        io.to(data.room).emit('newMessage', m(`${data.user}`, data.text))
     });
 
 });

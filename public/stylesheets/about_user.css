@@ -62,6 +62,7 @@ body {
     box-sizing: border-box;
     position: relative;
     margin-right: 50px;
+    cursor: pointer;
 }
 
 .nav_right img {
@@ -86,7 +87,9 @@ body {
     border-right: 2px solid rgb(255, 255, 255);
     border-radius: 0 0 10px 10px;
     box-sizing: border-box;
-    /*   */
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
 }
 
 .sub_right div {

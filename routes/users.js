@@ -40,17 +40,13 @@ router.post('/', async function (req, res, next) { //async
         }
         res.redirect('/')
       } else {
-        res.send({
-          m: 's'
-        });
+        console.log('sdas11');
+        res.redirect('/');
       }
     })
     .catch(function (err) {
-      if (err) {
-        console.log(err);
-        //  res.status(500).send("This email already exist")
-      }
-      console.log(err)
+      console.log('mail is not s');
+      res.redirect('/');
     })
 });
 

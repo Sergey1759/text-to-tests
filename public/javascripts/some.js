@@ -16,18 +16,18 @@ logout.addEventListener('click', async (e) => {
 function wrap_toggle(e) {
     let bool = true;
     return function (e) {
-        if (e.target.className == 'user_name') {
-            if (bool) {
-                sub_right.classList.add('to_anim_sub');
-                sub_right.classList.remove('from_anim_sub');
-            } else {
-                sub_right.classList.add('from_anim_sub');
-                sub_right.classList.remove('to_anim_sub');
-            }
-            setTimeout(() => {
-                sub_right.style.display = bool ? 'flex' : 'none';
-                bool = !bool
-            }, 290)
+        // if (e.target.className == 'nav_right') {
+        if (bool) {
+            sub_right.classList.add('to_anim_sub');
+            sub_right.classList.remove('from_anim_sub');
+        } else {
+            sub_right.classList.add('from_anim_sub');
+            sub_right.classList.remove('to_anim_sub');
         }
+        setTimeout(() => {
+            sub_right.style.display = bool ? 'flex' : 'none';
+            bool = !bool
+        }, 290)
+        // }
     }
 }

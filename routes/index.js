@@ -4,6 +4,7 @@ var api = require("./apiUser");
 var group = require("./apiGroup");
 var multer_ = require("./multer");
 var apiTest = require("./apiTest");
+var apiGroup = require("./apiGroup");
 var apiTestResult = require("./apiTestResult");
 
 var ApiMessage = require("./ApiMessage");
@@ -206,9 +207,16 @@ router.post("/upload_test_result", midleware, async function (req, res, next) {
 });
 
 router.get("/chat", midleware, async function (req, res, next) {
-  
+  let room = await ApiRooms.getAll();
+  // let m = await ApiRooms.addUser(room[0]._id, req.session.user.id);
+  // console.log(m)
+  // console.log('room[0]')
+  // console.log(room[0])
+  userID = req.session.user.id;
+  RoomID = room[0].id;
   res.render("chat", {
-    massage
+    userID,
+    RoomID
   });
 });
 
