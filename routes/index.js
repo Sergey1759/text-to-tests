@@ -15,7 +15,8 @@ var ApiSocket = require("./ApiSocket");
 
 
 /* GET home page. */
-router.get("/", function (req, res, next) {
+router.get("/", async function (req, res, next) {
+  let names_group = await apiGroup.getAllForAuth();
   if (req.session.user) {
     var data = {
       title: "Express",
@@ -27,9 +28,19 @@ router.get("/", function (req, res, next) {
     var data = {
       title: "Express"
     };
-    res.render("index", data);
+    res.render("index", {
+      names_group
+    });
   }
   // console.log(req.session)
+});
+
+router.get("/addGroup", async function (req, res, next) {
+  res.render('addGroup');
+});
+router.post('/addGroup', async function (req, res, next) {
+  await apiGroup.createGroup(req.body.name_group);
+  res.redirect('/addGroup');
 });
 
 router.get("/some", midleware, async function (req, res, next) {
@@ -218,6 +229,11 @@ router.get("/chat", midleware, async function (req, res, next) {
     userID,
     RoomID
   });
+});
+
+router.get("/my_result", midleware, async function (req, res, next) {
+
+  res.render("my_result");
 });
 
 

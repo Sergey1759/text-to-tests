@@ -2,6 +2,7 @@ var mongoose = require('mongoose')
 var crypto = require('crypto')
 var db = mongoose.connect("mongodb+srv://sergey:root@cluster0-ppek4.mongodb.net/test")
 var User = require('./UserModel')
+var group = require('./apiGroup')
 
 
 exports.createUser = async function (userData) {
@@ -13,16 +14,22 @@ exports.createUser = async function (userData) {
     console.log(user_local)
     return Promise.reject(false);
   } else {
-    var user = {
-      name: userData.name,
-      lastname: userData.lastname,
-      group: userData.group,
-      email: userData.email,
-      photo: userData.photo,
-      role: 'user',
-      password: hash(userData.password)
-    }
-    return new User(user).save()
+    console.log(12)
+    return await group.get(userData.group).then(res => {
+      let buf = [];
+      buf.push(res.chatId);
+      var user = {
+        name: userData.name,
+        lastname: userData.last_name,
+        group: userData.group,
+        email: userData.email,
+        photo: userData.photo,
+        role: 'user',
+        password: hash(userData.password),
+        chats: buf
+      }
+      return Promise.resolve(new User(user).save())
+    });
   }
 
 }

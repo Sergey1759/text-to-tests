@@ -9,9 +9,11 @@
   background: rgb(0, 87, 146);
   background: rgb(0, 0, 70);
   color: rgb(0, 0, 70);
-  background: linear-gradient(164deg,
-      rgba(0, 0, 70, 1) 0%,
-      rgba(28, 181, 224, 1) 100%);
+  background: linear-gradient(
+    164deg,
+    rgba(0, 0, 70, 1) 0%,
+    rgba(28, 181, 224, 1) 100%
+  );
   font-family: "Oswald", sans-serif;
 }
 
@@ -94,6 +96,7 @@
 
 .danger_placeholder {
   width: 100%;
+  color: rgba(153, 15, 15, 0.788);
 }
 
 .danger_placeholder ::-webkit-input-placeholder {
@@ -282,6 +285,31 @@
   text-align: center;
   opacity: 0;
   transition: all 1s;
+}
+
+.successful_sign_up {
+  display: none;
+  text-align: center;
+  font-size: 1.5em;
+  color: rgb(62, 190, 62);
+  margin-top: 15px;
+}
+
+.container_auth select {
+  width: 100%;
+  margin-top: 10px;
+  border: 0;
+  font-size: 1.2em;
+  border-bottom: 1px solid rgb(0, 87, 146);
+  color: rgb(0, 87, 146);
+  text-align-last: center;
+  text-align: center;
+  -ms-text-align-last: center;
+  -moz-text-align-last: center;
+  outline: none;
+}
+.container_auth select option:first-child {
+  display: none;
 }
 
 @keyframes logo {
