@@ -218,14 +218,18 @@ router.post("/upload_test_result", midleware, async function (req, res, next) {
 });
 
 router.get("/chat", midleware, async function (req, res, next) {
-  let room = await ApiRooms.getAll();
-  // let m = await ApiRooms.addUser(room[0]._id, req.session.user.id);
-  // console.log(m)
-  // console.log('room[0]')
-  // console.log(room[0])
-  userID = req.session.user.id;
-  RoomID = room[0].id;
+  let user = await api.getByID(req.session.user.id);
+  let user_chats_id = user.chats;
+  let user_chats = await ApiRooms.getIncludes(user_chats_id);
   res.render("chat", {
+    user_chats
+  });
+});
+
+router.get("/chat/:id", midleware, async function (req, res, next) {
+  let userID = req.session.user.id;
+  let RoomID = req.params.id;
+  res.render("chat_id", {
     userID,
     RoomID
   });
