@@ -19,13 +19,15 @@ io.on('connection', socket => {
         cb({
             userId: socket.id,
         });
-        socket.emit('newMessage', m('admin', `hello ${data.user}`));
-        socket.broadcast.to(data.room)
-            .emit('newMessage', m('admin', `hello2 ${data.user}`))
+        // socket.emit('newMessage', m('admin', `hello ${data.user}`));
+        // socket.broadcast.to(data.room)
+        //     .emit('newMessage', m('admin', `hello2 ${data.user}`))
     });
 
-    socket.on('CreateMessage', data => {
-        io.to(data.room).emit('newMessage', m(`${data.user}`, data.text))
+    socket.on('CreateMessage', async data => {
+        io.to(data.room).emit('newMessage', m(`${data.user}`, data.text));
+        await ApiChats.createMessage(data.room, data.text, data.user, data.room);
+        console.log(data);
     });
 
 });

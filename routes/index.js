@@ -229,9 +229,12 @@ router.get("/chat", midleware, async function (req, res, next) {
 router.get("/chat/:id", midleware, async function (req, res, next) {
   let userID = req.session.user.id;
   let RoomID = req.params.id;
+  let massage = await ApiMessage.getChatById(RoomID);
+  console.log(massage);
   res.render("chat_id", {
     userID,
-    RoomID
+    RoomID,
+    massage
   });
 });
 
@@ -240,6 +243,11 @@ router.get("/my_result", midleware, async function (req, res, next) {
   res.render("my_result");
 });
 
+
+router.get("/classmates", midleware, async function (req, res, next) {
+
+  res.render("classmates");
+});
 
 
 module.exports = router;
