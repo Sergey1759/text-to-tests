@@ -1,7 +1,8 @@
 var express = require("express");
 var app = express();
-var server = app.listen(3000);
-var io = require('socket.io').listen(server);
+var server = app.listen(8080);
+var socketIO = require('socket.io');
+var io = socketIO(server);
 var ApiChats = require("./ApiMessage");
 
 const m = (name, text, id) => {
