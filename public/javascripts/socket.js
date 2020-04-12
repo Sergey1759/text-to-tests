@@ -1,5 +1,5 @@
 let form = document.getElementsByTagName('form')[0];
-let socket = io(`${window.location.hostname}:9000`);
+let socket = io('/');
 // let room = form.id;
 var objDiv = document.getElementById("messages");
 objDiv.scrollTop = objDiv.scrollHeight;
