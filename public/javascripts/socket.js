@@ -1,4 +1,5 @@
 let form = document.getElementsByTagName('form')[0];
+
 let socket = io(`${window.location.hostname}:8080`);
 
 var objDiv = document.getElementById("messages");
