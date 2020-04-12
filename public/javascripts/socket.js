@@ -1,5 +1,5 @@
 let form = document.getElementsByTagName('form')[0];
-let socket = io('https://cryptic-tundra-22516.herokuapp.com:443');
+// let socket = io('https://cryptic-tundra-22516.herokuapp.com:443');
 // let room = form.id;
 var objDiv = document.getElementById("messages");
 objDiv.scrollTop = objDiv.scrollHeight;
