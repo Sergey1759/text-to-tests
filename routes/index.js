@@ -15,7 +15,8 @@ var ApiSocket = require("./ApiSocket");
 
 
 /* GET home page. */
-router.get("/", function (req, res, next) {
+router.get("/", async function (req, res, next) {
+  let names_group = await apiGroup.getAllForAuth();
   if (req.session.user) {
     var data = {
       title: "Express",
@@ -27,20 +28,27 @@ router.get("/", function (req, res, next) {
     var data = {
       title: "Express"
     };
-    res.render("index", data);
+    res.render("index", {
+      names_group
+    });
   }
   // console.log(req.session)
+});
+
+router.get("/addGroup", async function (req, res, next) {
+  res.render('addGroup');
+});
+router.post('/addGroup', async function (req, res, next) {
+  await apiGroup.createGroup(req.body.name_group);
+  res.redirect('/addGroup');
 });
 
 router.get("/some", midleware, async function (req, res, next) {
   let user = await api.getByID(req.session.user.id);
   let classs = [];
-  console.log(user.group);
   let groupdate = await group.get(user.group);
   if (groupdate) {
     let obj = groupdate.students;
-
-    console.log(obj);
     for (const id of obj) {
       if (id != user.id && id != false) {
         let buf = await api.getByID(id);
@@ -50,7 +58,6 @@ router.get("/some", midleware, async function (req, res, next) {
   } else {
     console.log("error group is not created");
   }
-  console.log(classs);
   res.render("some", {
     user,
     classs
@@ -207,19 +214,60 @@ router.post("/upload_test_result", midleware, async function (req, res, next) {
 });
 
 router.get("/chat", midleware, async function (req, res, next) {
-  let room = await ApiRooms.getAll();
-  // let m = await ApiRooms.addUser(room[0]._id, req.session.user.id);
-  // console.log(m)
-  // console.log('room[0]')
-  // console.log(room[0])
-  userID = req.session.user.id;
-  RoomID = room[0].id;
+  let user = await api.getByID(req.session.user.id);
+  let user_chats_id = user.chats;
+  let user_chats = await ApiRooms.getIncludes(user_chats_id);
   res.render("chat", {
-    userID,
-    RoomID
+    user_chats
   });
 });
 
+router.get("/chat/:id", midleware, async function (req, res, next) {
+  let userID = req.session.user.id;
+  console.log(req.params);
+  let RoomID = req.params.id;
+  let massage = await ApiMessage.getChatById(RoomID);
+  console.log(massage);
+  res.render("chat_id", {
+    userID,
+    RoomID,
+    massage
+  });
+});
+
+router.get("/my_result", midleware, async function (req, res, next) {
+
+  res.render("my_result");
+});
+
+
+router.get("/classmates", midleware, async function (req, res, next) {
+  let classs = [];
+  let groupdate = await group.get(req.session.user.group);
+  if (groupdate) {
+    let obj = groupdate.students;
+    for (const id of obj) {
+      if (id != req.session.user.id && id != false) {
+        let buf = await api.getByID(id);
+        classs.push(buf);
+      }
+    }
+  } else {
+    console.log("error group is not created");
+  }
+  res.render("classmates", {
+    classs
+  });
+});
+
+router.post("/classmates", midleware, async function (req, res, next) {
+  console.log(req.body.classmates_id)
+  let classmates = await api.getByID(req.body.classmates_id);
+  let new_room = await ApiRooms.createRooms(`${req.session.user.name}-${classmates.name}`);
+  await api.addChatRooms(classmates._id, new_room._id);
+  await api.addChatRooms(req.session.user.id, new_room._id);
+  res.redirect('/chat');
+});
 
 
 module.exports = router;

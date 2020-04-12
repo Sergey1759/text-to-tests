@@ -15,6 +15,7 @@ var User = new Schema({
   password: 'string',
   group: 'string',
   role: 'string',
+  chats: Array,
   result: []
 });
 

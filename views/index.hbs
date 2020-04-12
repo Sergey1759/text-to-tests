@@ -7,16 +7,12 @@
         <div class="container_for_form">
 
             <div class="SignIn">
-                {{!-- <h3>{{this.m}}</h3> --}}
                 <form method='post' action='/users/login' id="SignInForm">
-                    <div class="error_login">
-                        asdas
-                    </div>
                     <div>
                         <input type="text" id="login" name="email" placeholder="email">
                     </div>
                     <div>
-                        <input type="password" id="password" name="password" placeholder="password">
+                        <input type="password" id="password" name="password" placeholder="пароль">
                     </div>
 
                     <div class="for_btn_flex">
@@ -26,19 +22,28 @@
                 </form>
             </div>
             <div class="SignUp">
+                <div class="successful_sign_up">
+                    Регистрация выполнена успешно теперь выполните вход...
+                </div>
                 <form method="post" action="/users/" id="SignUpForm">
                     <div>
-                        <input type="text" name="name" placeholder="Имя"
-                            alt=" asdasdasdasda asd asdasd as a sdas da s" />
+                        <input type="text" name="name" placeholder="Имя" />
                     </div>
 
                     <div>
-                        <input type="text" name="lastname" placeholder="Фамилия" />
+                        <input type="text" name="last_name" placeholder="Фамилия" />
                     </div>
-
                     <div>
-                        <input type="text" name="group" placeholder="Група" />
+                        <select name="group">
+                            <option id='group_header'> Группа </option>
+                            {{#each this.names_group}}
+                            <option value={{this}}>{{this}}</option>
+                            {{/each}}
+                        </select>
                     </div>
+                    {{!-- <div>
+                        <input type="text" placeholder="Група" />
+                    </div> --}}
 
                     <div>
                         <input type="text" name="email" placeholder="email" />
@@ -49,7 +54,7 @@
                     </div>
 
                     <div>
-                        <input type="password" name="password_2" placeholder="повторите пароль" />
+                        <input type="password" name="repeat_password" placeholder="повторите пароль" />
                     </div>
 
                     <div class="for_btn_flex">

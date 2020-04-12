@@ -14,7 +14,7 @@ function createMessage(roomID, massage, from, to) {
 
 function getChatById(id) {
     return ModelMessage.find({
-        id_chat: id
+        roomID: id
     });
 }
 module.exports = {

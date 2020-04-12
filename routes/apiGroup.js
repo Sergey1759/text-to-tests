@@ -1,6 +1,7 @@
 var mongoose = require('mongoose')
 var db = mongoose.connect("mongodb+srv://sergey:root@cluster0-ppek4.mongodb.net/test")
 var Group = require('./ModelGroup')
+let Api_rooms = require('./ApiRooms');
 
 
 function get(name) {
@@ -11,10 +12,32 @@ function get(name) {
   });
 }
 
+async function createGroup(name) {
+  let created_chat = await Api_rooms.createRooms(`${name}_chat`);
+  let group = {
+    name: name,
+    chatId: created_chat._id
+  }
+  console.log(group);
+  return new Group(group).save();
+}
+
 function getAll() {
   return Group.find({}, function (err, doc) {
     return Promise.resolve(doc);
   });
+}
+
+function getAllForAuth() { // for select in index hbs
+  return Group.find({}, function (err, doc) {
+    return Promise.resolve(doc);
+  }).then(res => {
+    let names_group = []
+    for (const iterator of res) {
+      names_group.push(iterator.name);
+    }
+    return names_group;
+  })
 }
 
 function getAll() {
@@ -37,5 +60,7 @@ module.exports = {
   addStudent,
   get,
   getAll,
-  insertNameTest
+  insertNameTest,
+  getAllForAuth,
+  createGroup
 }

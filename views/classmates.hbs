@@ -1,0 +1,27 @@
+{{#if classs}}
+<div class="my_class">
+    <div class="other">
+        {{#each classs}}
+        <div class="profile">
+            <div class="user_img">
+                <img src={{this.photo}} alt="user">
+            </div>
+            <div class="user_info">
+                <div>{{this.name}}</div>
+                <div>{{this.lastname}}</div>
+                <div>{{this.email}}</div>
+                <div>{{this.group}}</div>
+            </div>
+            <div class="control">
+                <input type="hidden" name="classmates_id" id={{this._id}}>
+                <div class="btn_message">
+                    message
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>
+{{else}}
+Нажаль зараз немає одногрупників
+{{/if}}

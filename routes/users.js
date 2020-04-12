@@ -6,7 +6,7 @@ var group = require('./apiGroup')
 /* Создание пользователя */
 router.post('/login', function (req, res, next) {
   if (req.session.user) return res.redirect('/');
-  console.log('-/----//-/-/-/-/-')
+  console.log(req.body);
   api.checkUser(req.body)
     .then(function (user) {
       if (user) {
@@ -15,20 +15,25 @@ router.post('/login', function (req, res, next) {
           name: user.name,
           group: user.group
         }
+        console.log(1);
+
         res.redirect('/')
       } else {
+        console.log(2);
+
         res.redirect('/')
       }
     })
     .catch(function (error) {
-      res.send({
+      console.log(3);
+      res.status(200).json({
         answer: "неверный логин или пароль"
-      })
+      });
       // return next(error)
     })
 
 });
-router.post('/', async function (req, res, next) { //async
+router.post('/', async function (req, res, next) { //async'
   api.createUser(req.body)
     .then(async function (result) { //async
       if (result) {
@@ -38,7 +43,9 @@ router.post('/', async function (req, res, next) { //async
           console.log('group is')
           group.addStudent(result._id, req.body.group);
         }
-        res.redirect('/')
+        res.json({
+          answer_True: "Регистрация выполнена успешно теперь выполните вход..."
+        })
       } else {
         console.log('sdas11');
         res.redirect('/');
@@ -46,7 +53,9 @@ router.post('/', async function (req, res, next) { //async
     })
     .catch(function (err) {
       console.log('mail is not s');
-      res.redirect('/');
+      res.json({
+        answer_False: "этот Email уже используется"
+      })
     })
 });
 
