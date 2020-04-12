@@ -2,16 +2,50 @@
 <html>
 
 <head>
-  <title>{{title}}</title>
+  <title></title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css' />
   <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel='stylesheet' href='/stylesheets/classmates.css' />
   <link rel='stylesheet' href='/stylesheets/about_user.css' />
   <link rel='stylesheet' href='/stylesheets/formAuth.css' />
 </head>
 
 <body>
+  <div class="nav_container">
+    <div class="nav_left">
+      MyTests
+    </div>
+    <div class="nav_center">
+      <nav>
+        <a href="/my_tests">
+          <div class="nav_item">Мои тесты</div>
+        </a>
+        <a href="/my_result">
+          <div class="nav_item">Мои результаты</div>
+        </a>
+        <a href="/classmates">
+          <div class="nav_item">Мои одногрупники</div>
+        </a>
+        <a href="/chat">
+          <div class="nav_item">Чат</div>
+        </a>
+      </nav>
+    </div>
+    <div class="nav_right">
+      <div class="user_name">
+        {{user.name}} {{user.lastname}}
+      </div>
+      <div class="user_img">
+        <img src={{user.photo}}>
+      </div>
+      <div class="sub_right">
+        <div>Настройки</div>
+        <div id="logout">Выйти</div>
+      </div>
+    </div>
+  </div>
   {{{body}}}
 
 </body>
@@ -20,5 +54,6 @@
 <script src="/javascripts/some.js"></script>
 <script src="/javascripts/form_class.js"></script>
 <script src="/javascripts/tests_calc.js"></script>
+<script src="/javascripts/classmates.js"></script>
 
 </html>

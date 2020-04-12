@@ -64,6 +64,12 @@ exports.getByID = function (id) {
     return Promise.resolve(doc);
   });
 }
+
+function getByID(id) {
+  return User.findById(id, function (err, doc) {
+    return Promise.resolve(doc);
+  });
+}
 exports.getByIDandReturnResult = function (id) {
   return User.findById(id).then(res => {
     return res.result
@@ -82,6 +88,16 @@ exports.getAll = function (id) {
   });
 }
 
+exports.addChatRooms = async function (user_id, chat_id) {
+  let user = await getByID(user_id);
+  let user_chats = user.chats;
+  user_chats.push(chat_id);
+  return User.findOneAndUpdate({
+    _id: user_id
+  }, {
+    chats: user_chats
+  });
+}
 
 function hash(text) {
   return crypto.createHash('sha1')

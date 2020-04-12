@@ -46,12 +46,9 @@ router.post('/addGroup', async function (req, res, next) {
 router.get("/some", midleware, async function (req, res, next) {
   let user = await api.getByID(req.session.user.id);
   let classs = [];
-  console.log(user.group);
   let groupdate = await group.get(user.group);
   if (groupdate) {
     let obj = groupdate.students;
-
-    console.log(obj);
     for (const id of obj) {
       if (id != user.id && id != false) {
         let buf = await api.getByID(id);
@@ -61,7 +58,6 @@ router.get("/some", midleware, async function (req, res, next) {
   } else {
     console.log("error group is not created");
   }
-  console.log(classs);
   res.render("some", {
     user,
     classs
@@ -228,6 +224,7 @@ router.get("/chat", midleware, async function (req, res, next) {
 
 router.get("/chat/:id", midleware, async function (req, res, next) {
   let userID = req.session.user.id;
+  console.log(req.params);
   let RoomID = req.params.id;
   let massage = await ApiMessage.getChatById(RoomID);
   console.log(massage);
@@ -245,8 +242,31 @@ router.get("/my_result", midleware, async function (req, res, next) {
 
 
 router.get("/classmates", midleware, async function (req, res, next) {
+  let classs = [];
+  let groupdate = await group.get(req.session.user.group);
+  if (groupdate) {
+    let obj = groupdate.students;
+    for (const id of obj) {
+      if (id != req.session.user.id && id != false) {
+        let buf = await api.getByID(id);
+        classs.push(buf);
+      }
+    }
+  } else {
+    console.log("error group is not created");
+  }
+  res.render("classmates", {
+    classs
+  });
+});
 
-  res.render("classmates");
+router.post("/classmates", midleware, async function (req, res, next) {
+  console.log(req.body.classmates_id)
+  let classmates = await api.getByID(req.body.classmates_id);
+  let new_room = await ApiRooms.createRooms(`${req.session.user.name}-${classmates.name}`);
+  await api.addChatRooms(classmates._id, new_room._id);
+  await api.addChatRooms(req.session.user.id, new_room._id);
+  res.redirect('/chat');
 });
 
 

@@ -1,6 +1,7 @@
-{{#each user_chats}}
-<a href="chat/{{this._id}}">
-    <div>{{this.name}}</div>
-</a>
-{{/each}}
-
+<div class="chats_user">
+    {{#each user_chats}}
+    <a href="chat/{{this._id}}" id={{this._id}}>
+        <div>{{this.name}}</div>
+    </a>
+    {{/each}}
+</div>

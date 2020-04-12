@@ -1,11 +1,12 @@
 <input type="hidden" id="userID" value={{userID}}>
 <input type="hidden" id="RoomID" value={{RoomID}}>
-
-<ul id="messages">
-    {{#each massage}}
-    <li>{{this.message}}</li>
-    {{/each}}
-</ul>
+<div class="chats_user">
+    <ul id="messages">
+        {{#each massage}}
+        <li>{{this.message}}</li>
+        {{/each}}
+    </ul>
+</div>
 <form action="">
     <input id="input_submit" autocomplete="off" /><button>Send</button>
 </form>
