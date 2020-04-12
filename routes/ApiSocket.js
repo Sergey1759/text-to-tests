@@ -2,7 +2,7 @@ var express = require("express");
 var app = express();
 var http = require("http").createServer(app);
 var io = require("socket.io")(http);
-http.listen(443, 'https://cryptic-tundra-22516.herokuapp.com');
+http.listen(443, 'https://cryptic-tundra-22516.herokuapp.com/');
 var ApiChats = require("./ApiMessage");
 
 const m = (name, text, id) => {
