@@ -5,17 +5,12 @@
     display: flex;
 }
 
-.chats_user {
-    margin-top: 100px;
-    background-color: white;
-    width: 100vw;
-    height: 10vh;
-    color: black;
-}
+
 
 .profile {
     width: 178px;
     height: 271px;
+    margin: 25px;
     background-color: rgba(0, 88, 146, 0.952);
     border-radius: 30px;
     padding: 20px;
@@ -44,4 +39,9 @@
     margin-top: 10px;
     border-radius: 10px;
     color: rgb(0, 87, 146);
+}
+
+.other {
+    display: flex;
+    width: 100%;
 }
