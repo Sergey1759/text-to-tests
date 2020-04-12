@@ -1,5 +1,5 @@
 let form = document.getElementsByTagName('form')[0];
-let socket = io(`wss://cryptic-tundra-22516.herokuapp.com`, {
+let socket = io(`https://cryptic-tundra-22516.herokuapp.com`, {
     port: 8080,
     transports: ["websocket"]
 });
