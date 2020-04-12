@@ -12,6 +12,20 @@ function getAll() {
     return ModelChatRooms.find({});
 }
 
+async function getIncludes(arr_includes) {
+    let all = await getAll();
+    let buf = [];
+    console.log(arr_includes)
+    for (const one_in_all of all) {
+        for (const inc of arr_includes) {
+            if ('' + one_in_all._id == inc) {
+                buf.push(one_in_all);
+            }
+        }
+    }
+    return Promise.resolve(buf);
+}
+
 async function addUser(Room_id, User_id) {
     let m = await ModelChatRooms.findOne({
         _id: Room_id
@@ -24,5 +38,6 @@ async function addUser(Room_id, User_id) {
 module.exports = {
     createRooms,
     getAll,
-    addUser
+    addUser,
+    getIncludes
 }

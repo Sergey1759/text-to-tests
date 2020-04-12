@@ -1,6 +1,8 @@
 let form = document.getElementsByTagName('form')[0];
 let socket = io('http://localhost:8080');
 // let room = form.id;
+var objDiv = document.getElementById("messages");
+objDiv.scrollTop = objDiv.scrollHeight;
 
 const user = {
     user: document.getElementById('userID').value,
@@ -13,8 +15,12 @@ socket.emit("user_join", user, (data) => {
 socket.on("newMessage", (data) => {
     let messages = document.getElementById('messages');
     let li = document.createElement('li');
-    li.innerText = data.text;
+    li.classList.add('li');
+    li.innerHTML = `<img src="https://img.icons8.com/plasticine/2x/user.png" alt="" width="50px"
+    height="50px"> ${data.text}`;
     messages.appendChild(li);
+    var objDiv = document.getElementById("messages");
+    objDiv.scrollTop = objDiv.scrollHeight;
 })
 
 form.addEventListener('submit', e => {
