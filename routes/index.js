@@ -112,6 +112,7 @@ router.post(
 );
 
 router.get("/my_tests", midleware, async function (req, res, next) {
+  let user = await api.getByID(req.session.user.id);
   let my_group = await group.get(req.session.user.group);
   let tests = my_group.tests;
   let test = await apiTest.getAll();
@@ -127,15 +128,18 @@ router.get("/my_tests", midleware, async function (req, res, next) {
     }
   }
   res.render("my_tests", {
-    arr
+    arr,
+    user
   });
 });
 
 router.get("/my_tests/:name", midleware, async function (req, res, next) {
+  let user = await api.getByID(req.session.user.id);
   let test = await apiTest.getByID(req.params.name);
   // console.log(test)
   res.render("name", {
-    test
+    test,
+    user
   });
 });
 
@@ -218,32 +222,39 @@ router.get("/chat", midleware, async function (req, res, next) {
   let user_chats_id = user.chats;
   let user_chats = await ApiRooms.getIncludes(user_chats_id);
   res.render("chat", {
-    user_chats
+    user_chats,
+    user
   });
 });
 
 router.get("/chat/:id", midleware, async function (req, res, next) {
   let userID = req.session.user.id;
-  console.log(req.params);
+  let user = await api.getByID(req.session.user.id);
+  // console.log(req.params);
   let RoomID = req.params.id;
   let massage = await ApiMessage.getChatById(RoomID);
   // console.log(massage);
   res.render("chat_id", {
     userID,
     RoomID,
-    massage
+    massage,
+    user
   });
 });
 
 router.get("/my_result", midleware, async function (req, res, next) {
+  let user = await api.getByID(req.session.user.id);
 
-  res.render("my_result");
+  res.render("my_result", {
+    user
+  });
 });
 
 
 router.get("/classmates", midleware, async function (req, res, next) {
   let classs = [];
   let groupdate = await group.get(req.session.user.group);
+  let user = await api.getByID(req.session.user.id);
   if (groupdate) {
     let obj = groupdate.students;
     for (const id of obj) {
@@ -256,17 +267,20 @@ router.get("/classmates", midleware, async function (req, res, next) {
     console.log("error group is not created");
   }
   res.render("classmates", {
-    classs
+    classs,
+    user
   });
 });
 
 router.post("/classmates", midleware, async function (req, res, next) {
   console.log(req.body.classmates_id)
   let classmates = await api.getByID(req.body.classmates_id);
-  let new_room = await ApiRooms.createRooms(`${req.session.user.name}-${classmates.name}`);
+  let new_room = await ApiRooms.createRooms(`${req.session.user.name}-${classmates.name}`, classmates._id, req.session.user.id);
   await api.addChatRooms(classmates._id, new_room._id);
   await api.addChatRooms(req.session.user.id, new_room._id);
+  console.log('q')
   res.redirect('/chat');
+  console.log('d')
 });
 
 

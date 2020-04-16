@@ -13,7 +13,7 @@ router.post('/login', function (req, res, next) {
         req.session.user = {
           id: user._id,
           name: user.name,
-          group: user.group
+          group: user.group,
         }
         console.log(1);
 

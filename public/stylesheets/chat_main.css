@@ -1,0 +1,73 @@
+.container_chats:hover {
+    background-color: rgba(85, 115, 250, 0.171);
+    transition: 0.4s ease-in-out;
+}
+
+.container_chats {
+    display: flex;
+    align-items: center;
+    position: relative;
+    background-color: rgba(214, 214, 214, 0.247);
+    padding: 10px;
+    background-position: center;
+    margin-top: 5px;
+    width: 48%;
+    float: left;
+    box-sizing: border-box;
+    transition: 0.4s ease-in-out;
+}
+
+.container_chats {
+    margin-right: 1.333%;
+    margin-left: 0.6555%;
+}
+
+.chats_user a:nth-child(2n+1) .container_chats {
+    margin-left: 1.333%;
+    margin-right: 0.6555%;
+}
+
+.image_container {
+    width: 70px;
+    height: 70px;
+    background-position: center;
+    background-size: contain;
+}
+
+.container_chats img {
+    width: 50px;
+    height: 50px;
+}
+
+.user_name {
+    margin-left: 10px;
+}
+
+.new_message_container div {}
+
+.count {
+    background-color: rgba(0, 88, 146, 0.719);
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 5px;
+}
+
+.new_message_container {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    right: 20px;
+    color: rgba(61, 61, 61, 0.329);
+}
+
+
+
+.chats_user a {
+    text-decoration: none;
+    color: rgb(0, 87, 146);
+}

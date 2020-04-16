@@ -61,7 +61,9 @@ button {
     min-width: 20px;
     display: flex;
     align-items: center;
-    background-color: rgb(177, 177, 177);
+    /* background-color: rgb(177, 177, 177); */
+    background-color: rgba(85, 115, 250, 0.171);
+
     border-radius: 10px;
     margin: 5px;
     padding-right: 10px;

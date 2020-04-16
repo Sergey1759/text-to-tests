@@ -1,7 +1,26 @@
+{{>nav}}
 <div class="chats_user">
+    <a href="#">
+        <div class="container_chats">
+            <div class="image_container"
+                style="background-image: url('https://img.icons8.com/color/480/steve-jobs.png');">
+            </div>
+            <div class="user_name">Сергей Лисицкий</div>
+            <div class="new_message_container">
+                <div class="text">новых сообщений</div>
+                <div class="count">300</div>
+            </div>
+        </div>
+    </a>
     {{#each user_chats}}
     <a href="chat/{{this._id}}" id={{this._id}}>
-        <div>{{this.name}}</div>
+        <div class="container_chats">
+            <div class="image_container"
+                style="background-image: url('https://img.icons8.com/bubbles/500/steve-jobs.png');">
+
+            </div>
+            <div class="user_name">{{this.name}}</div>
+        </div>
     </a>
     {{/each}}
 </div>

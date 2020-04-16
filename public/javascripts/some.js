@@ -16,7 +16,6 @@ logout.addEventListener('click', async (e) => {
 function wrap_toggle(e) {
     let bool = true;
     return function (e) {
-        // if (e.target.className == 'nav_right') {
         if (bool) {
             sub_right.classList.add('to_anim_sub');
             sub_right.classList.remove('from_anim_sub');
@@ -28,6 +27,5 @@ function wrap_toggle(e) {
             sub_right.style.display = bool ? 'flex' : 'none';
             bool = !bool
         }, 290)
-        // }
     }
 }
