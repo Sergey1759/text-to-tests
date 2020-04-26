@@ -13,6 +13,16 @@ function getAll() {
     return ModelChatRooms.find({});
 }
 
+function addUserToChat(IdChat, IdUser) {
+    return ModelChatRooms.findOne({
+        _id: IdChat
+    }).then(res => {
+        console.log('qwe')
+        res.users.push(IdUser);
+        ModelChatRooms(res).save();
+    })
+}
+
 async function getIncludes(arr_includes) {
     let all = await getAll();
     let buf = [];
@@ -40,5 +50,6 @@ module.exports = {
     createRooms,
     getAll,
     addUser,
-    getIncludes
+    getIncludes,
+    addUserToChat
 }

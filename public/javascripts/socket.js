@@ -8,29 +8,42 @@ objDiv.scrollTop = objDiv.scrollHeight;
 const user = {
   user: document.getElementById("userID").value,
   room: document.getElementById("RoomID").value,
+  user_img: document.getElementById("user_img").value,
 };
 
 socket.emit("user_join", user, (data) => {
   console.log(data);
 });
 socket.on("newMessage", (data) => {
+  console.log(data)
   let messages = document.getElementById("messages");
   let li = document.createElement("li");
-  li.classList.add("li");
-  li.innerHTML = `<img src="https://img.icons8.com/plasticine/2x/user.png" alt="" width="50px"
+  if (data.name == user.user) {
+    li.classList.add("li");
+    li.innerHTML = `<img src="${user.user_img}" alt="" width="50px"
     height="50px"> ${data.text}`;
+  } else {
+    li.classList.add("li");
+    li.classList.add("li_reverse");
+    li.innerHTML = `<img src="${data.img}" alt="" width="50px"
+    height="50px"> ${data.text}`;
+  }
+
   messages.appendChild(li);
   var objDiv = document.getElementById("messages");
   objDiv.scrollTop = objDiv.scrollHeight;
+  console.log('eew')
 });
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   let m = document.getElementById("input_submit");
+
   socket.emit("CreateMessage", {
     user: user.user,
     text: m.value,
     room: user.room,
+    user_img: user.user_img
   });
   m.value = "";
 });
@@ -40,13 +53,14 @@ document.addEventListener("keydown", function (event) {
   if (event.code != "Enter") {
     m.focus();
   } else {
-    if (m.value.trim()) {
-      socket.emit("CreateMessage", {
-        user: user.user,
-        text: m.value,
-        room: user.room,
-      });
-      m.value = "";
-    }
+    // if (m.value.trim()) {
+    //   socket.emit("CreateMessage", {
+    //     user: user.user,
+    //     text: m.value,
+    //     room: user.room,
+    //     user_img: user.user_img
+    //   });
+    //   m.value = "";
+    // }
   }
 });

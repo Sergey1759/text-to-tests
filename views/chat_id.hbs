@@ -1,18 +1,32 @@
 {{>nav}}
 <input type="hidden" id="userID" value={{userID}}>
 <input type="hidden" id="RoomID" value={{RoomID}}>
+<input type="hidden" id="user_img" value={{user_img}}>
+
 <div class="chats_user">
-    <ul id="messages" class="ul">
-        {{#each massage}}
-        <li class="li"><img src="https://img.icons8.com/plasticine/2x/user.png" alt="" width="50px"
-                height="50px">{{this.message}}
-        </li>
-        {{/each}}
-    </ul>
-    <form action="">
-        <textarea id="input_submit"> </textarea>
-        <button><img class='send_icon' src="../images/send_icon.png" alt=""></button>
-    </form>
+    <div class="logo_message">
+        <div class="logo_message_img" style="background-image: url('{{another_user.photo}}');">
+        {{!-- <img src={{another_user.photo}}> --}}
+    </div>
+    <div class="logo_container">
+        <div class="logo_message_user_name">
+            {{another_user.name}} {{another_user.lastname}}
+        </div>
+        <div class="logo_message_status">
+            был в сети 16.45
+        </div>
+    </div>
+</div>
+<ul id="messages" class="ul">
+    {{#each data_for_frontend}}
+    <li class="li {{this.class}}"><img src='{{this.img}}' alt="" width="50px" height="50px">{{this.massage}}
+    </li>
+    {{/each}}
+</ul>
+<form action="">
+    <input id="input_submit" placeholder="Введите сообщение..." autocomplete="off"> </input>
+    <button><img class=' send_icon' src="../images/send_icon.png" alt=""></button>
+</form>
 </div>
 
 {{!-- <script src="/socket.io/lib/socket.js"></script> --}}

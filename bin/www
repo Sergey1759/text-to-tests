@@ -43,10 +43,11 @@ server.on('listening', onListening);
 var io = socketIO(server);
 var ApiChats = require("../routes/ApiMessage");
 
-const m = (name, text, id) => {
+const m = (name, text, img, id) => {
   return {
     name: name,
     text: text,
+    img: img,
     id: id
   }
 }
@@ -63,7 +64,8 @@ io.on('connection', socket => {
   });
 
   socket.on('CreateMessage', async data => {
-    io.to(data.room).emit('newMessage', m(`${data.user}`, data.text));
+    console.log(data);
+    io.to(data.room).emit('newMessage', m(`${data.user}`, data.text, data.user_img));
     await ApiChats.createMessage(data.room, data.text, data.user, data.room);
     console.log(data);
   });

@@ -16,6 +16,7 @@ var User = new Schema({
   group: 'string',
   role: 'string',
   chats: Array,
+  online: Date,
   result: []
 });
 

@@ -41,6 +41,8 @@ router.post('/', async function (req, res, next) { //async'
         let groupdate = await group.get(req.body.group);
         if (groupdate) {
           console.log('group is')
+          let ChatGroup = groupdate.chatId;
+          
           group.addStudent(result._id, req.body.group);
         }
         res.json({

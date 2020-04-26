@@ -1,4 +1,8 @@
 {{>nav}}
-{{#each arr}}
-    <a href=/my_tests/{{this.id}}><div>{{this.name}}</div></a>
-{{/each}}
+<div style="background-color: darkslategrey;" style="margin-top: 100px;">
+    {{#each arr}}
+    <a href=/my_tests/{{this.id}}>
+        <div>{{this.name}}</div>
+    </a>
+    {{/each}}
+</div>

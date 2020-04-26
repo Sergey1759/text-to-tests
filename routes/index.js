@@ -72,8 +72,9 @@ router.get("/addTest", midleware, isAdmin, async function (req, res, next) {
   });
 });
 
-function midleware(req, res, next) {
+async function midleware(req, res, next) {
   if (req.session.user) {
+    await api.setOnline(req.session.user.id, new Date());
     next();
   } else {
     res.redirect("/");
@@ -136,6 +137,7 @@ router.get("/my_tests", midleware, async function (req, res, next) {
 router.get("/my_tests/:name", midleware, async function (req, res, next) {
   let user = await api.getByID(req.session.user.id);
   let test = await apiTest.getByID(req.params.name);
+  console.log('d')
   // console.log(test)
   res.render("name", {
     test,
@@ -221,23 +223,116 @@ router.get("/chat", midleware, async function (req, res, next) {
   let user = await api.getByID(req.session.user.id);
   let user_chats_id = user.chats;
   let user_chats = await ApiRooms.getIncludes(user_chats_id);
+  let arr = [];
+  for (const iterator of user_chats) {
+    let obj = {};
+    if (iterator.users.length == 2) { // чат группи не заповнюэться покищо треба реалізувати
+      obj.chat_id = iterator._id;
+      for (const users of iterator.users) {
+        if ('' + users != '' + req.session.user.id) {
+          let local_user = await api.getByID(users);
+          // console.log(local_user);
+          obj.user_name = local_user.name;
+          obj.lastname = local_user.lastname;
+          obj.photo = local_user.photo;
+        }
+      }
+      arr.push(obj);
+    } else {
+
+    }
+  }
+  console.log(arr)
   res.render("chat", {
-    user_chats,
+    arr,
     user
   });
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// router.get("/chat/:id", midleware, async function (req, res, next) {
+//   console.log('d') // два раза выводит 
+//   res.render("chat_id");
+// });
+
+
+
+
+
+
+
+
+
+
+
+
+
 router.get("/chat/:id", midleware, async function (req, res, next) {
+  console.log('....////')
   let userID = req.session.user.id;
   let user = await api.getByID(req.session.user.id);
-  // console.log(req.params);
+  console.log(req.params);
+  // await ApiRooms.addUserToChat('5e9229bfcbca7211ac2ce33c', 'qwerty7');
+
   let RoomID = req.params.id;
   let massage = await ApiMessage.getChatById(RoomID);
+  console.log(massage)
+  let data_for_frontend = [];
   // console.log(massage);
+  let user_img = user.photo;
+  let another_user;
+  let bool = false
+  for (const iterator of massage) {
+    if ('' + iterator.from == '' + req.session.user.id) {
+      data_for_frontend.push({
+        massage: iterator.message,
+        class: 'me',
+        img: user.photo
+      });
+    } else {
+      let buf = await api.getByID(iterator.from);
+      let buf_img = buf.photo;
+      if (!bool) {
+        another_user = buf;
+        bool = !bool
+      };
+      data_for_frontend.push({
+        massage: iterator.message,
+        class: 'li_reverse',
+        img: buf_img
+      });
+    }
+  }
+  console.log(data_for_frontend);
+  console.log(another_user);
+
   res.render("chat_id", {
     userID,
     RoomID,
-    massage,
+    another_user,
+    user_img,
+    data_for_frontend,
     user
   });
 });

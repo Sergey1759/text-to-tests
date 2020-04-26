@@ -88,6 +88,16 @@ exports.getAll = function (id) {
   });
 }
 
+exports.setOnline = function (id, date) {
+  return User.findOneAndUpdate({
+    _id: id
+  }, {
+    online: date
+  }, function (err, doc) {
+    return Promise.resolve(doc);
+  });
+}
+
 exports.addChatRooms = async function (user_id, chat_id) {
   let user = await getByID(user_id);
   let user_chats = user.chats;
@@ -98,6 +108,7 @@ exports.addChatRooms = async function (user_id, chat_id) {
     chats: user_chats
   });
 }
+
 
 function hash(text) {
   return crypto.createHash('sha1')
