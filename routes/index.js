@@ -4,6 +4,7 @@ var router = express.Router();
 var api = require("./apiUser");
 var group = require("./apiGroup");
 var multer_ = require("./multer");
+
 var apiTest = require("./apiTest");
 var apiGroup = require("./apiGroup");
 var apiTestResult = require("./apiTestResult");
@@ -130,6 +131,15 @@ router.get("/my_tests", midleware, async function (req, res, next) {
   }
   res.render("my_tests", {
     arr,
+    user
+  });
+});
+
+
+router.get("/setting", midleware, async function (req, res, next) {
+  let user = await api.getByID(req.session.user.id);
+
+  res.render("setting", {
     user
   });
 });
