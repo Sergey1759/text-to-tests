@@ -2,9 +2,10 @@ var mongoose = require('mongoose')
 var db = mongoose.connect("mongodb+srv://sergey:root@cluster0-ppek4.mongodb.net/test")
 var ModelChatRooms = require('./ModelChatRooms');
 
-function createRooms(name, ...users) {
+function createRooms(name, type, ...users) {
     return new ModelChatRooms({
         name: name,
+        type: type,
         users: users
     }).save();
 }
@@ -17,7 +18,6 @@ function addUserToChat(IdChat, IdUser) {
     return ModelChatRooms.findOne({
         _id: IdChat
     }).then(res => {
-        console.log('qwe')
         res.users.push(IdUser);
         ModelChatRooms(res).save();
     })

@@ -147,8 +147,6 @@ router.get("/setting", midleware, async function (req, res, next) {
 router.get("/my_tests/:name", midleware, async function (req, res, next) {
   let user = await api.getByID(req.session.user.id);
   let test = await apiTest.getByID(req.params.name);
-  console.log('d')
-  // console.log(test)
   res.render("name", {
     test,
     user
@@ -167,7 +165,6 @@ router.post("/upload_test_result", midleware, async function (req, res, next) {
     req.body.idTest,
     req.body.arr
   );
-  // console.log(response_Result[0]._id)
 
   if (response_user_result.length && response_Result[0] != undefined) {
     for (const obj of response_user_result) {
@@ -233,23 +230,27 @@ router.get("/chat", midleware, async function (req, res, next) {
   let user = await api.getByID(req.session.user.id);
   let user_chats_id = user.chats;
   let user_chats = await ApiRooms.getIncludes(user_chats_id);
+  console.log(user_chats)
   let arr = [];
   for (const iterator of user_chats) {
     let obj = {};
-    if (iterator.users.length == 2) { // чат группи не заповнюэться покищо треба реалізувати
+    if (iterator.type == 'each other') { // чат группи не заповнюэться покищо треба реалізувати
       obj.chat_id = iterator._id;
       for (const users of iterator.users) {
         if ('' + users != '' + req.session.user.id) {
           let local_user = await api.getByID(users);
-          // console.log(local_user);
           obj.user_name = local_user.name;
           obj.lastname = local_user.lastname;
           obj.photo = local_user.photo;
+          obj.chat_id = iterator._id;
         }
       }
       arr.push(obj);
-    } else {
-
+    } else if(iterator.type == 'group') {
+      obj.chat_id = iterator._id;
+      obj.user_name = iterator.name;
+      obj.photo = 'https://download.seaicons.com/icons/blackvariant/button-ui-system-folders-alt/512/Group-icon.png'; // or group photo
+      arr.push(obj);
     }
   }
   console.log(arr)
@@ -260,59 +261,25 @@ router.get("/chat", midleware, async function (req, res, next) {
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// router.get("/chat/:id", midleware, async function (req, res, next) {
-//   console.log('d') // два раза выводит 
-//   res.render("chat_id");
-// });
-
-
-
-
-
-
-
-
-
-
-
-
-
 router.get("/chat/:id", midleware, async function (req, res, next) {
-  console.log('....////')
+  // console.log('....////')
   let userID = req.session.user.id;
   let user = await api.getByID(req.session.user.id);
-  console.log(req.params);
-  // await ApiRooms.addUserToChat('5e9229bfcbca7211ac2ce33c', 'qwerty7');
+  // console.log(req.params);
+  // 
 
   let RoomID = req.params.id;
   let massage = await ApiMessage.getChatById(RoomID);
-  console.log(massage)
+  // console.log(massage)
   let data_for_frontend = [];
   // console.log(massage);
   let user_img = user.photo;
   let another_user;
-  let bool = false
+  let bool = false;
+  massage.reverse();
+  // massage.length = 30;
+  massage.reverse();
+
   for (const iterator of massage) {
     if ('' + iterator.from == '' + req.session.user.id) {
       data_for_frontend.push({
@@ -334,8 +301,8 @@ router.get("/chat/:id", midleware, async function (req, res, next) {
       });
     }
   }
-  console.log(data_for_frontend);
-  console.log(another_user);
+  // console.log(data_for_frontend);
+  // console.log(another_user);
 
   res.render("chat_id", {
     userID,
@@ -380,7 +347,7 @@ router.get("/classmates", midleware, async function (req, res, next) {
 router.post("/classmates", midleware, async function (req, res, next) {
   console.log(req.body.classmates_id)
   let classmates = await api.getByID(req.body.classmates_id);
-  let new_room = await ApiRooms.createRooms(`${req.session.user.name}-${classmates.name}`, classmates._id, req.session.user.id);
+  let new_room = await ApiRooms.createRooms(`${req.session.user.name}-${classmates.name}`, 'each other', classmates._id, req.session.user.id);
   await api.addChatRooms(classmates._id, new_room._id);
   await api.addChatRooms(req.session.user.id, new_room._id);
   console.log('q')

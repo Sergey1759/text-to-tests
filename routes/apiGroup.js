@@ -13,7 +13,7 @@ function get(name) {
 }
 
 async function createGroup(name) {
-  let created_chat = await Api_rooms.createRooms(`${name}_chat`);
+  let created_chat = await Api_rooms.createRooms(`${name}_chat`, 'group');
   let group = {
     name: name,
     chatId: created_chat._id

@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var api = require('./apiUser')
 var group = require('./apiGroup')
+var ApiRooms = require('./ApiRooms')
 
 /* Создание пользователя */
 router.post('/login', function (req, res, next) {
@@ -42,7 +43,7 @@ router.post('/', async function (req, res, next) { //async'
         if (groupdate) {
           console.log('group is')
           let ChatGroup = groupdate.chatId;
-          
+          await ApiRooms.addUserToChat(ChatGroup, result._id);
           group.addStudent(result._id, req.body.group);
         }
         res.json({

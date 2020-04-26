@@ -4,6 +4,7 @@ var db = mongoose.connect("mongodb+srv://sergey:root@cluster0-ppek4.mongodb.net/
 var Rooms = new Schema({
     users: [],
     message: [],
+    type : 'string',
     name: Schema.Types.String,
 });
 
