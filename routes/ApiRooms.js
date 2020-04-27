@@ -10,6 +10,10 @@ function createRooms(name, type, ...users) {
     }).save();
 }
 
+async function getById(id) {
+    return ModelChatRooms.findById(id);
+}
+
 function getAll() {
     return ModelChatRooms.find({});
 }
@@ -51,5 +55,6 @@ module.exports = {
     getAll,
     addUser,
     getIncludes,
-    addUserToChat
+    addUserToChat,
+    getById
 }

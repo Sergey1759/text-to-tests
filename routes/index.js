@@ -12,36 +12,33 @@ var ApiMessage = require("./ApiMessage");
 var ApiRooms = require("./ApiRooms");
 var ApiSocket = require("./ApiSocket");
 
-
-
-
 /* GET home page. */
 router.get("/", async function (req, res, next) {
   let names_group = await apiGroup.getAllForAuth();
   if (req.session.user) {
     var data = {
       title: "Express",
-      user: req.session.user
+      user: req.session.user,
     };
     res.redirect("some");
     // res.render('index', data);
   } else {
     var data = {
-      title: "Express"
+      title: "Express",
     };
     res.render("index", {
-      names_group
+      names_group,
     });
   }
   // console.log(req.session)
 });
 
-router.get("/addGroup", async function (req, res, next) {
-  res.render('addGroup');
+router.get("/addGroup", midleware, isAdmin, async function (req, res, next) {
+  res.render("addGroup");
 });
-router.post('/addGroup', async function (req, res, next) {
+router.post("/addGroup", midleware, isAdmin, async function (req, res, next) {
   await apiGroup.createGroup(req.body.name_group);
-  res.redirect('/addGroup');
+  res.redirect("/addGroup");
 });
 
 router.get("/some", midleware, async function (req, res, next) {
@@ -61,7 +58,7 @@ router.get("/some", midleware, async function (req, res, next) {
   }
   res.render("some", {
     user,
-    classs
+    classs,
   });
   // res.render('some',{user});
 });
@@ -93,11 +90,15 @@ async function isAdmin(req, res, next) {
 router.get("/admin", midleware, isAdmin, async function (req, res, next) {
   res.render("admin");
 });
-router.get("/UsersControl", midleware, isAdmin, async function (req, res, next) {
+router.get("/UsersControl", midleware, isAdmin, async function (
+  req,
+  res,
+  next
+) {
   let all_users = await api.getAll();
   console.log(all_users);
   res.render("UsersControl", {
-    all_users
+    all_users,
   });
 });
 
@@ -124,23 +125,22 @@ router.get("/my_tests", midleware, async function (req, res, next) {
       if ("" + tests[i] == "" + test[j]._id) {
         arr.push({
           id: "" + test[j]._id,
-          name: test[j].name
+          name: test[j].name,
         });
       }
     }
   }
   res.render("my_tests", {
     arr,
-    user
+    user,
   });
 });
-
 
 router.get("/setting", midleware, async function (req, res, next) {
   let user = await api.getByID(req.session.user.id);
 
   res.render("setting", {
-    user
+    user,
   });
 });
 
@@ -149,7 +149,7 @@ router.get("/my_tests/:name", midleware, async function (req, res, next) {
   let test = await apiTest.getByID(req.params.name);
   res.render("name", {
     test,
-    user
+    user,
   });
 });
 
@@ -182,7 +182,7 @@ router.post("/upload_test_result", midleware, async function (req, res, next) {
           if (!elem_checked.isModified)
             buf_arr.push({
               id: elem_checked.id,
-              count: +elem_checked.value
+              count: +elem_checked.value,
             });
         }
         let req_for_attempt = await apiTestResult.insertIdRESULT(
@@ -202,10 +202,10 @@ router.post("/upload_test_result", midleware, async function (req, res, next) {
       }
     }
   } else {
-    let buf_arr = response_checked_test.map(elem => {
+    let buf_arr = response_checked_test.map((elem) => {
       return {
         id: elem.id,
-        count: +elem.value
+        count: +elem.value,
       };
     });
     let isCreateResult = await apiTestResult.createUserResult(
@@ -222,7 +222,7 @@ router.post("/upload_test_result", midleware, async function (req, res, next) {
   // console.log(req.body.idTest)
   // await api.delete_result(req.session.user.id);
   res.send({
-    m: "hi"
+    m: "hi",
   });
 });
 
@@ -230,14 +230,15 @@ router.get("/chat", midleware, async function (req, res, next) {
   let user = await api.getByID(req.session.user.id);
   let user_chats_id = user.chats;
   let user_chats = await ApiRooms.getIncludes(user_chats_id);
-  console.log(user_chats)
+  // console.log(user_chats)
   let arr = [];
   for (const iterator of user_chats) {
     let obj = {};
-    if (iterator.type == 'each other') { // чат группи не заповнюэться покищо треба реалізувати
+    if (iterator.type == "each other") {
+      // чат группи не заповнюэться покищо треба реалізувати
       obj.chat_id = iterator._id;
       for (const users of iterator.users) {
-        if ('' + users != '' + req.session.user.id) {
+        if ("" + users != "" + req.session.user.id) {
           let local_user = await api.getByID(users);
           obj.user_name = local_user.name;
           obj.lastname = local_user.lastname;
@@ -246,82 +247,119 @@ router.get("/chat", midleware, async function (req, res, next) {
         }
       }
       arr.push(obj);
-    } else if(iterator.type == 'group') {
+    } else if (iterator.type == "group") {
       obj.chat_id = iterator._id;
       obj.user_name = iterator.name;
-      obj.photo = 'https://download.seaicons.com/icons/blackvariant/button-ui-system-folders-alt/512/Group-icon.png'; // or group photo
+      obj.photo =
+        "https://download.seaicons.com/icons/blackvariant/button-ui-system-folders-alt/512/Group-icon.png"; // or group photo
       arr.push(obj);
     }
   }
-  console.log(arr)
+  console.log(arr);
   res.render("chat", {
     arr,
-    user
+    user,
   });
 });
 
-
 router.get("/chat/:id", midleware, async function (req, res, next) {
-  // console.log('....////')
   let userID = req.session.user.id;
-  let user = await api.getByID(req.session.user.id);
-  // console.log(req.params);
-  // 
-
   let RoomID = req.params.id;
-  let massage = await ApiMessage.getChatById(RoomID);
-  // console.log(massage)
-  let data_for_frontend = [];
-  // console.log(massage);
+  let chat = await ApiRooms.getById(RoomID);
+  let user = await api.getByID(userID);
+  let massage = await ApiMessage.getChatByIdPagination(RoomID);
+  let obj = {};
+  let complete_arr = [];
   let user_img = user.photo;
   let another_user;
-  let bool = false;
-  massage.reverse();
-  // massage.length = 30;
-  massage.reverse();
-
   for (const iterator of massage) {
-    if ('' + iterator.from == '' + req.session.user.id) {
-      data_for_frontend.push({
-        massage: iterator.message,
-        class: 'me',
-        img: user.photo
-      });
-    } else {
-      let buf = await api.getByID(iterator.from);
-      let buf_img = buf.photo;
-      if (!bool) {
-        another_user = buf;
-        bool = !bool
+    if (obj[iterator.from] == undefined) {
+      let user = await api.getByID(iterator.from);
+      obj[iterator.from] = {
+        photo: user.photo,
+        name: user.name,
+        lastname: user.lastname,
+        online: dateFormat(user.online)
       };
-      data_for_frontend.push({
-        massage: iterator.message,
-        class: 'li_reverse',
-        img: buf_img
-      });
+    }
+    if ("" + iterator.from == "" + req.session.user.id) {
+      complete_arr.push(
+        createData(
+          iterator.message,
+          "me",
+          obj[iterator.from].photo,
+          dateFormat(iterator.data)
+        )
+      );
+    } else {
+      complete_arr.push(
+        createData(
+          iterator.message,
+          "li_reverse",
+          obj[iterator.from].photo,
+          dateFormat(iterator.data)
+        )
+      );
+      if (chat.type == 'each other') {
+        another_user = obj[iterator.from]
+        another_user.type = true;
+      } else {
+        another_user = {
+          type: false,
+          name: chat.name,
+          photo: "https://download.seaicons.com/icons/blackvariant/button-ui-system-folders-alt/512/Group-icon.png"
+        }
+      }
     }
   }
-  // console.log(data_for_frontend);
-  // console.log(another_user);
 
+  function dateFormat(date) {
+    var months = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    var month = months[date.getMonth()];
+    var dateDay = date.getDate();
+    var hour = date.getHours();
+    var min = date.getMinutes();
+    return `${month} ${dateDay} ${hour}:${min}`;
+  }
+
+  function createData(message, div_class, img, date, type_bool) {
+    return {
+      massage: message,
+      div_class: div_class,
+      img: img,
+      date: date,
+      type: type_bool
+    };
+  }
   res.render("chat_id", {
     userID,
     RoomID,
-    another_user,
     user_img,
-    data_for_frontend,
-    user
+    user,
+    complete_arr,
+    another_user
   });
 });
 
 router.get("/my_result", midleware, async function (req, res, next) {
   let user = await api.getByID(req.session.user.id);
-
   res.render("my_result", {
-    user
+    user,
   });
 });
-
 
 router.get("/classmates", midleware, async function (req, res, next) {
   let classs = [];
@@ -340,20 +378,24 @@ router.get("/classmates", midleware, async function (req, res, next) {
   }
   res.render("classmates", {
     classs,
-    user
+    user,
   });
 });
 
 router.post("/classmates", midleware, async function (req, res, next) {
-  console.log(req.body.classmates_id)
+  console.log(req.body.classmates_id);
   let classmates = await api.getByID(req.body.classmates_id);
-  let new_room = await ApiRooms.createRooms(`${req.session.user.name}-${classmates.name}`, 'each other', classmates._id, req.session.user.id);
+  let new_room = await ApiRooms.createRooms(
+    `${req.session.user.name}-${classmates.name}`,
+    "each other",
+    classmates._id,
+    req.session.user.id
+  );
   await api.addChatRooms(classmates._id, new_room._id);
   await api.addChatRooms(req.session.user.id, new_room._id);
-  console.log('q')
-  res.redirect('/chat');
-  console.log('d')
+  console.log("q");
+  res.redirect("/chat");
+  console.log("d");
 });
-
 
 module.exports = router;

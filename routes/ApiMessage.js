@@ -17,7 +17,15 @@ function getChatById(id) {
         roomID: id
     });
 }
+
+function getChatByIdPagination(id) {
+    return ModelMessage.find({
+        roomID: id
+    }).limit(50);
+}
+
 module.exports = {
     createMessage,
-    getChatById
+    getChatById,
+    getChatByIdPagination
 }

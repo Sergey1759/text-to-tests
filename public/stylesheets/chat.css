@@ -112,11 +112,11 @@ button {
   background-color: rgb(198, 236, 255);
 }
 
-.logo_message_img {
+.logo_message_img img {
   width: 55px;
   height: 55px;
-  background-position: center;
-  background-size: cover;
+  /* background-position: center;
+  background-size: cover; */
   margin-right: 10px;
 }
 
