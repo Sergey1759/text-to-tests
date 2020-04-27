@@ -2,6 +2,7 @@
 <input type="hidden" id="userID" value={{userID}}>
 <input type="hidden" id="RoomID" value={{RoomID}}>
 <input type="hidden" id="user_img" value={{user_img}}>
+<input type="hidden" id="user_name" value={{user.name}}>
 
 <div class="chats_user">
     <div class="logo_message">
@@ -29,10 +30,18 @@
         </li>
         {{/each}}
     </ul>
-    <form action="">
-        <input id="input_submit" placeholder="Введите сообщение..." autocomplete="off"> </input>
-        <button><img class=' send_icon' src="../images/send_icon.png" alt=""></button>
-    </form>
+    <div class="container_form">
+        <form action="" id="form-chat">
+            <div class="typing"></div>
+            <div class="emoji">
+
+            </div>
+            <button id="btn-emoji"> <img src="/images/smile.png" alt="" id="target_img"></button>
+            <input id="input_submit" placeholder="Введите сообщение..." autocomplete="off"> </input>
+            <button id="btn-submit"> Отправить</button>
+        </form>
+    </div>
+
 </div>
 
 {{!-- <script src="/socket.io/lib/socket.js"></script> --}}

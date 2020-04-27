@@ -70,6 +70,11 @@ io.on('connection', socket => {
     console.log(data);
   });
 
+  socket.on('typing', async data => {
+    console.log(data);
+    io.to(data.room).emit('display', m(`${data.user}`, data.text, data.user_img));
+  });
+
 });
 /////////////////////////////////////////////////////////////////////////////////////// End Socket IO
 
