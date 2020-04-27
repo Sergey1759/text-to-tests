@@ -1,6 +1,8 @@
 let form = document.getElementsByTagName("form")[0];
-
 let socket = io();
+
+let audio = new Audio('https://d1490khl9dq1ow.cloudfront.net/audio/sfx/mp3preview/BsTwCwBHBjzwub4i4/windshield-knock-single_f1n9owNd_NWM.mp3');
+
 
 var objDiv = document.getElementById("messages");
 objDiv.scrollTop = objDiv.scrollHeight;
@@ -16,6 +18,7 @@ socket.emit("user_join", user, (data) => {
 });
 socket.on("newMessage", (data) => {
   console.log(data)
+  audio.play();
   let messages = document.getElementById("messages");
   let li = document.createElement("li");
   if (data.name == user.user) {
