@@ -19,9 +19,9 @@
       </li>
       <li>
         <label for="group">Група :</label>
-        <select id="group" name="group">
-            {{#each this.names_group}}
-              <option value={{this}}>{{this}}</option>
+        <select id="group" name="group" value="{{user.group}}">
+            {{#each allgroups}}
+              <option value={{this.name}}>{{this.name}}</option>
             {{/each}}
         </select>
       </li>
@@ -34,7 +34,7 @@
         <input type="password" name="repeat_password" id="repeat_password"/>
       </li>
       <li>
-        <label for="repeat_password_again">Новий пароль знову :</label>
+        <label for="repeat_password_again">Новий пароль знову  :</label>
         <input type="password" name="repeat_password_again" id="repeat_password_again"/>
       </li>
       <li>

@@ -138,9 +138,10 @@ router.get("/my_tests", midleware, async function (req, res, next) {
 
 router.get("/setting", midleware, async function (req, res, next) {
   let user = await api.getByID(req.session.user.id);
-
+  let allgroups = await group.getAll();
   res.render("setting", {
-    user
+    user,
+    allgroups
   });
 });
 
