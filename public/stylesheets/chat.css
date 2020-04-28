@@ -11,8 +11,6 @@
 }
 
 .ul::-webkit-scrollbar-track {
-  /* -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); */
-  /* border-radius: 10px; */
   background-color: rgb(198, 236, 255);
 }
 
@@ -25,7 +23,6 @@
 .ul::-webkit-scrollbar-thumb {
   border-radius: 10px;
   width: 5px;
-  /* -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3); */
   background-color: rgb(0, 87, 146);
 }
 
@@ -45,14 +42,11 @@
 }
 
 .li {
-  /* padding: 20px; */
   width: fit-content;
   min-width: 20px;
   display: flex;
   align-items: center;
-  /* background-color: rgb(177, 177, 177); */
   background-color: rgba(85, 115, 250, 0.171);
-
   border-radius: 10px;
   margin: 5px;
   padding-right: 10px;
@@ -74,16 +68,14 @@
   align-items: center;
   justify-content: center;
   padding: 5px;
-  /* border-bottom: 2px solid rgb(0, 87, 146); */
   box-sizing: border-box;
   background-color: rgb(198, 236, 255);
+  position: relative;
 }
 
 .logo_message_img img {
   width: 55px;
   height: 55px;
-  /* background-position: center;
-  background-size: cover; */
   margin-right: 10px;
 }
 
@@ -95,11 +87,6 @@
   font-size: 0.9em;
   color: rgba(0, 88, 146, 0.692);
 }
-
-/* .logo_message_status {
-    font-size: 1.1em;
-    color: rgba(21, 196, 30, 0.884);
-} */
 
 .logo_container {
   padding: 5px;
@@ -195,8 +182,6 @@
 }
 
 .emoji::-webkit-scrollbar-track {
-  /* -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); */
-  /* border-radius: 10px; */
   background-color: rgb(198, 236, 255);
 }
 
@@ -209,14 +194,12 @@
 .emoji::-webkit-scrollbar-thumb {
   border-radius: 10px;
   width: 5px;
-  /* -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3); */
   background-color: rgb(0, 87, 146);
 }
 
 .emoji div {
   width: 30px;
   height: 30px;
-  /* background-color: teal; */
   box-sizing: border-box;
   margin: 1px;
   line-height: 30px;
@@ -233,4 +216,252 @@
   position: absolute;
   left: 25px;
   bottom: 48px;
+}
+
+.chat_setting {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-transform: uppercase;
+  overflow: hidden;
+  width: 50px;
+}
+
+.chat_setting:hover::after {
+  animation-name: opacity;
+  animation-timing-function: ease-in-out;
+  animation-duration: 0.5s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+
+.chat_setting:hover img {
+  transform: translate(-45px);
+  transition: 0.5s;
+  opacity: 0;
+}
+
+.chat_setting::after {
+  opacity: 0;
+  position: absolute;
+  content: 'setting';
+}
+
+.chat_setting img {
+  width: 40px;
+  height: 40px;
+  margin-right: 5px;
+  right: 15px;
+  opacity: 1;
+  transition: 0.5s;
+  animation-name: setting_rotate;
+  animation-timing-function: linear;
+  animation-duration: 3.6s;
+  animation-iteration-count: infinite;
+  /* animation-fill-mode: forwards; */
+}
+
+@keyframes setting_rotate {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes opacity {
+  0% {
+    opacity: 1;
+    right: -100px;
+  }
+
+  100% {
+    opacity: 1;
+    right: 0px;
+  }
+}
+
+.container__chat {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* setting chat -------------------------------------------*/
+
+.container_setting {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(1, 5, 20, 0.973);
+  position: absolute;
+  z-index: 51;
+  overflow: hidden;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.box_setting {
+  width: 30%;
+  height: 77%;
+  background-color: rgb(255, 255, 255);
+  padding: 10px;
+  font-family: "Oswald", sans-serif;
+  border-radius: 10px;
+}
+
+.setting_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgb(255, 255, 255);
+  padding: 5px;
+  border-bottom: 1px solid rgb(100, 100, 100);
+}
+
+.setting_header div {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.setting_header_text {
+  font-size: 30px;
+}
+
+.setting_header_btn_close {
+  background-color: rgb(255, 72, 72);
+  padding: 5px;
+  border-radius: 5px;
+  color: white;
+  transition: 0.4s ease-in-out;
+  cursor: pointer;
+}
+
+.setting_header_btn_close:hover {
+  background-color: rgb(255, 1, 1);
+  transition: 0.4s ease-in-out;
+}
+
+.setting_show_users {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.setting_show_users__body {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.setting_show_users__header {
+  font-size: 20px;
+  color: rgb(73, 73, 73);
+}
+
+.setting_show_users__body_user {
+  padding: 5px;
+  background-color: rgb(0, 87, 146);
+  margin-left: 10px;
+  margin-top: 10px;
+  border-radius: 3px;
+  color: white;
+}
+
+.setting_edit_photo {
+  margin-top: 20px;
+}
+
+.setting_edit_photo__header {
+  color: rgb(73, 73, 73);
+  font-size: 20px;
+}
+
+.setting_edit_photo__body {
+  margin-top: 10px;
+  display: flex;
+}
+
+.container_setting_img {
+  width: 34%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.container_setting_img img {
+  width: 100px;
+  height: 100px;
+}
+
+.container_setting_container_input {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  margin-left: 10px;
+  width: 66%;
+  box-sizing: border-box;
+}
+
+.container_setting_container_input div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 35px;
+  margin-top: 7px;
+  margin-bottom: 7px;
+}
+
+.conteiner_input {
+  width: 100%;
+}
+
+.btn_url_for_input {
+  height: 100%;
+  width: 10%;
+  background-color: rgb(199, 219, 19);
+  color: rgb(73, 73, 73);
+  font-size: 20px;
+  position: absolute;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 10px 0 0 10px;
+}
+
+#input_url {
+  height: 100%;
+  width: 90%;
+  outline: none;
+  color: rgb(73, 73, 73);
+  box-sizing: border-box;
+}
+
+#file {
+  opacity: 0.01;
+  visibility: hidden;
+}
+
+#label_file {
+  position: absolute;
+  width: 100%;
+  background-color: rgb(199, 219, 19);
+  color: rgb(73, 73, 73);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  font-size: 20px;
+  cursor: pointer;
 }

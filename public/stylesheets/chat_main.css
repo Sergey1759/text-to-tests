@@ -43,8 +43,6 @@
     margin-left: 10px;
 }
 
-.new_message_container div {}
-
 .count {
     background-color: rgba(0, 88, 146, 0.719);
     color: white;
@@ -64,8 +62,6 @@
     right: 20px;
     color: rgba(61, 61, 61, 0.329);
 }
-
-
 
 .chats_user a {
     text-decoration: none;
