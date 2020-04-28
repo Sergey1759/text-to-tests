@@ -1,9 +1,46 @@
 {{>nav}}
 <link rel='stylesheet' href='/stylesheets/setting.css' />
 
-<H1>G SDJF JK</H1>
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta iste ipsum error doloremque quia assumenda minus,
-eligendi expedita eius velit maiores nam pariatur autem ducimus, nisi cum distinctio voluptatum sequi.
-
-{{user.name}}
-<img src="{{user.photo}}" alt="">
+<div class="container">
+  <img src="{{user.photo}}" alt="">
+  <form>
+    <ul class="flex-outer">
+      <li>
+        <label for="first-name">Ім'я :</label>
+        <input type="text" id="first-name" name="name" value="{{user.name}}"/>
+      </li>
+      <li>
+        <label for="last-name">Фамілія :</label>
+        <input type="text" id="last-name" name="last_name" value="{{user.lastname}}"/>
+      </li>
+      <li>
+        <label for="email">Email :</label>
+        <input type="email" id="email" name="email" value="{{user.email}}"/>
+      </li>
+      <li>
+        <label for="group">Група :</label>
+        <select id="group" name="group">
+            {{#each this.names_group}}
+              <option value={{this}}>{{this}}</option>
+            {{/each}}
+        </select>
+      </li>
+      <li>
+        <label for="password">Старий пароль :</label>
+        <input type="password" name="password" id="password" value="{{user.password}}"/>
+      </li>
+      <li>
+        <label for="repeat_password">Новий пароль :</label>
+        <input type="password" name="repeat_password" id="repeat_password"/>
+      </li>
+      <li>
+        <label for="repeat_password_again">Новий пароль знову :</label>
+        <input type="password" name="repeat_password_again" id="repeat_password_again"/>
+      </li>
+      <li>
+        <button type="submit">Зберегти</button>
+      </li>
+    </ul>
+  </form>
+</div>
+ <script src="/javascripts/edit_auth.js"></script>
