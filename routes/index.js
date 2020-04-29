@@ -250,8 +250,7 @@ router.get("/chat", midleware, async function (req, res, next) {
     } else if (iterator.type == "group") {
       obj.chat_id = iterator._id;
       obj.user_name = iterator.name;
-      obj.photo =
-        "https://download.seaicons.com/icons/blackvariant/button-ui-system-folders-alt/512/Group-icon.png"; // or group photo
+      obj.photo = iterator.img;
       arr.push(obj);
     }
   }
@@ -266,6 +265,9 @@ router.get("/chat/:id", midleware, async function (req, res, next) {
   let userID = req.session.user.id;
   let RoomID = req.params.id;
   let chat = await ApiRooms.getById(RoomID);
+  let chat_name = chat.name;
+  let users_in_chat = await api.getIncludesID(...chat.users);
+  // console.log(chat);
   let user = await api.getByID(userID);
   let massage = await ApiMessage.getChatByIdPagination(RoomID);
   let obj = {};
@@ -307,7 +309,7 @@ router.get("/chat/:id", midleware, async function (req, res, next) {
         another_user = {
           type: false,
           name: chat.name,
-          photo: "https://download.seaicons.com/icons/blackvariant/button-ui-system-folders-alt/512/Group-icon.png"
+          photo: chat.img
         }
       }
     }
@@ -350,8 +352,14 @@ router.get("/chat/:id", midleware, async function (req, res, next) {
     user_img,
     user,
     complete_arr,
-    another_user
+    another_user,
+    chat_name,
+    users_in_chat
   });
+});
+
+router.post("/chat/update_img", midleware, async function (req, res, next) {
+  console.log(req.body);
 });
 
 router.get("/my_result", midleware, async function (req, res, next) {

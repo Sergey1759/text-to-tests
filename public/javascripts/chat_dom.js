@@ -23,7 +23,6 @@ objDiv.scrollTop = objDiv.scrollHeight;
 
 
 // ----------------------------------  chat setting
-//container_setting
 let container_setting = document.getElementsByClassName('container_setting')[0];
 
 let chat_setting = document.getElementsByClassName('chat_setting')[0];
@@ -36,4 +35,29 @@ let setting_header_btn_close = document.getElementsByClassName('setting_header_b
 setting_header_btn_close.addEventListener('click', () => {
     container_setting.style.display = "none";
     isOpenSetting = false;
+});
+
+// ---------------------------------save img
+let container_setting_error = document.getElementsByClassName('container_setting_error')[0];
+let btn_save_img = document.getElementsByClassName('btn_save_img')[0];
+let input_url = document.getElementById('input_url');
+let file = document.getElementById('file');
+
+btn_save_img.addEventListener('click', async () => {
+    let obj = {};
+    obj.count = 0;
+    if (input_url.value) {
+        obj.count++;
+        obj.elem = input_url.value
+    }
+    if (file.files[0]) {
+        obj.count++;
+        obj.elem = file.files[0]
+    }
+    if (obj.count == 2) {
+        container_setting_error.innerText = "Обновите страницу, и выберите один из вариантов смены фото"
+    } else {
+        // now is not created
+    }
+
 });

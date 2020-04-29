@@ -18,6 +18,14 @@ function getAll() {
     return ModelChatRooms.find({});
 }
 
+function updateChatImg(id, url) {
+    return ModelChatRooms.findByIdAndUpdate({
+        _id: id
+    }, {
+        img: url
+    });
+}
+
 function addUserToChat(IdChat, IdUser) {
     return ModelChatRooms.findOne({
         _id: IdChat
@@ -56,5 +64,6 @@ module.exports = {
     addUser,
     getIncludes,
     addUserToChat,
-    getById
+    getById,
+    updateChatImg
 }

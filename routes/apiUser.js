@@ -87,6 +87,14 @@ exports.getAll = function (id) {
     return Promise.resolve(doc);
   });
 }
+exports.getIncludesID = function (...arr) {
+  return User.find({
+    _id: {
+      $in: arr
+    }
+  });
+}
+
 
 exports.setOnline = function (id, date) {
   return User.findOneAndUpdate({
@@ -114,4 +122,3 @@ function hash(text) {
   return crypto.createHash('sha1')
     .update(text).digest('base64')
 }
-

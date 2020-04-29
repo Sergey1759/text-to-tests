@@ -452,7 +452,8 @@
   visibility: hidden;
 }
 
-#label_file {
+#label_file,
+.btn_save_img {
   position: absolute;
   width: 100%;
   background-color: rgb(199, 219, 19);
@@ -464,4 +465,8 @@
   border-radius: 10px;
   font-size: 20px;
   cursor: pointer;
+}
+
+.btn_save_img {
+  background-color: rgb(126, 219, 19);
 }

@@ -51,7 +51,7 @@
     <div class="box_setting">
         <div class="setting_header">
             <div class="setting_header_text">
-                setting_header
+                {{chat_name}}
             </div>
             <div class="setting_header_btn_close">
                 Закрыть
@@ -62,21 +62,11 @@
                 Пользователи в чате :
             </div>
             <div class="setting_show_users__body">
+                {{#each users_in_chat}}
                 <div class="setting_show_users__body_user">
-                    artem sobol
+                    {{this.lastname}} {{this.name}}
                 </div>
-                <div class="setting_show_users__body_user">
-                    artem sobol
-                </div>
-                <div class="setting_show_users__body_user">
-                    artem sobol
-                </div>
-                <div class="setting_show_users__body_user">
-                    artem sobol
-                </div>
-                <div class="setting_show_users__body_user">
-                    artem sobol
-                </div>
+                {{/each}}
             </div>
         </div>
         <div class="setting_edit_photo">
@@ -85,7 +75,7 @@
             </div>
             <div class="setting_edit_photo__body">
                 <div class="container_setting_img">
-                    <img src="https://image.flaticon.com/icons/svg/1835/1835942.svg" alt="">
+                    <img src={{another_user.photo}} alt="">
                 </div>
 
                 <div class="container_setting_container_input">
@@ -95,11 +85,15 @@
                     </div>
                     <div class="conteiner_input">
                         <label for="file" id="label_file">file</label>
-                        <input type="file" name="setting_img" id="file">
+                        <input type="file" name="setting_img" id="file" accept="image/*" name="avatar">
+                    </div>
+                    <div class="conteiner_input">
+                        <div class="btn_save_img">save</div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="container_setting_error"></div>
     </div>
 
     {{!-- <script src="/socket.io/lib/socket.js"></script> --}}
