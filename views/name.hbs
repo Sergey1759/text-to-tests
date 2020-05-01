@@ -1,18 +1,23 @@
 {{>nav}}
-<div class="btn_upload_res"> submit </div>
-<div class="test_conteiner">
-    <h1 class="test">Назва предмету {{test.name}}</h1>
-    <input id="test_ID" name="test_ID" type="hidden" value={{test._id}}>
-    {{#each test.test}}
-    <form id={{this.id}} class="test_form">
-        <div>{{this.questions}}</div>
-        {{#each this.answer}}
-        <div class="conteiner_answe">
-            <input type="radio" name='name' id={{this.id}}>
-            <label for="{{this.id}}"> {{this.answe}}</label>
-        </div>
+<link rel="stylesheet" href="/stylesheets/test.css">
+<div class="main_container">
+
+    <div class="test_conteiner">
+        <h1 class="test">Назва предмету {{test.name}}</h1>
+        <input id="test_ID" name="test_ID" type="hidden" value={{test._id}}>
+        {{#each test.test}}
+        <form id={{this.id}} class="test_form">
+            <div class="question">{{this.questions}}</div>
+            {{#each this.answer}}
+            <div class="conteiner_answe">
+                <input type="radio" name='name' id={{this.id}}>
+                <label for="{{this.id}}"> {{this.answe}}</label>
+            </div>
+            {{/each}}
+        </form>
         {{/each}}
-    </form>
-    {{/each}}
+    </div>
 </div>
+<div class="btn_upload_res"> submit </div>
+
 <script src="/javascripts/tests_calc.js"></script>

@@ -1,0 +1,64 @@
+.main_container {
+    width: 80%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%);
+    min-height: 100vh;
+    background-color: white;
+    padding-top: 100px;
+    box-sizing: border-box;
+    font-family: "Oswald", sans-serif;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Inter&display=swap');
+
+.test_conteiner {
+    font-family: 'Inter', sans-serif;
+    width: 75%;
+    margin: auto;
+}
+
+.test_conteiner .test_form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.test_form {
+    background-color: rgba(198, 218, 235, 0.849);
+    padding: 15px;
+}
+
+.test_form label {
+    line-height: 1em;
+    padding-left: 10px;
+}
+
+.conteiner_answe {
+    display: flex;
+    align-items: center;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    padding: 5px;
+}
+
+.test_conteiner h1 {
+    text-align: center;
+}
+
+.btn_upload_res {
+    position: fixed;
+    right: 15%;
+    top: 100px;
+    background-color: crimson;
+    color: aliceblue;
+    padding: 10px;
+}
+
+.question {
+    font-size: 20px;
+    text-align: center;
+    font-weight: bold;
+    color: rgb(0, 87, 146);
+    margin-bottom: 10px;
+}

@@ -12,6 +12,20 @@ var ApiMessage = require("./ApiMessage");
 var ApiRooms = require("./ApiRooms");
 var ApiSocket = require("./ApiSocket");
 
+var multer = require('multer');
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'public/images/server')
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + file.originalname)
+  }
+})
+
+var upload = multer({
+  storage: storage
+})
+
 /* GET home page. */
 router.get("/", async function (req, res, next) {
   let names_group = await apiGroup.getAllForAuth();
@@ -66,7 +80,7 @@ router.get("/some", midleware, async function (req, res, next) {
 router.get("/addTest", midleware, isAdmin, async function (req, res, next) {
   let allgroups = await group.getAll();
   res.render("addTest", {
-    allgroups
+    allgroups,
   });
 });
 
@@ -281,7 +295,7 @@ router.get("/chat/:id", midleware, async function (req, res, next) {
         photo: user.photo,
         name: user.name,
         lastname: user.lastname,
-        online: dateFormat(user.online)
+        online: dateFormat(user.online),
       };
     }
     if ("" + iterator.from == "" + req.session.user.id) {
@@ -302,15 +316,15 @@ router.get("/chat/:id", midleware, async function (req, res, next) {
           dateFormat(iterator.data)
         )
       );
-      if (chat.type == 'each other') {
-        another_user = obj[iterator.from]
+      if (chat.type == "each other") {
+        another_user = obj[iterator.from];
         another_user.type = true;
       } else {
         another_user = {
           type: false,
           name: chat.name,
-          photo: chat.img
-        }
+          photo: chat.img,
+        };
       }
     }
   }
@@ -343,7 +357,7 @@ router.get("/chat/:id", midleware, async function (req, res, next) {
       div_class: div_class,
       img: img,
       date: date,
-      type: type_bool
+      type: type_bool,
     };
   }
   res.render("chat_id", {
@@ -354,13 +368,28 @@ router.get("/chat/:id", midleware, async function (req, res, next) {
     complete_arr,
     another_user,
     chat_name,
-    users_in_chat
+    users_in_chat,
   });
 });
 
-router.post("/chat/update_img", midleware, async function (req, res, next) {
-  console.log(req.body);
-});
+router.post(
+  "/chat/update_img",
+  midleware,
+  upload.single("avatar"),
+  async function (req, res, next) {
+    // let m = await ApiRooms.updateChatImg();
+    try {
+      if (req.file) {
+        await ApiRooms.updateChatImg(req.body.room, '/images/server/' + req.file.filename);
+      } else {
+        await ApiRooms.updateChatImg(req.body.room, req.body.url);
+      }
+    } catch (err) {
+      res.sendStatus(400);
+    }
+    res.sendStatus(200);
+  }
+);
 
 router.get("/my_result", midleware, async function (req, res, next) {
   let user = await api.getByID(req.session.user.id);
@@ -391,19 +420,21 @@ router.get("/classmates", midleware, async function (req, res, next) {
 });
 
 router.post("/classmates", midleware, async function (req, res, next) {
-  console.log(req.body.classmates_id);
+  // console.log(req.body.classmates_id);
   let classmates = await api.getByID(req.body.classmates_id);
-  let new_room = await ApiRooms.createRooms(
-    `${req.session.user.name}-${classmates.name}`,
-    "each other",
-    classmates._id,
-    req.session.user.id
-  );
-  await api.addChatRooms(classmates._id, new_room._id);
-  await api.addChatRooms(req.session.user.id, new_room._id);
-  console.log("q");
-  res.redirect("/chat");
-  console.log("d");
+  let room = await ApiRooms.getIncludesByIdUsers("" + req.session.user.id);
+  console.log(room);
+  if (false) {
+    let new_room = await ApiRooms.createRooms(
+      `${req.session.user.name}-${classmates.name}`,
+      "each other",
+      classmates._id,
+      req.session.user.id
+    );
+    await api.addChatRooms(classmates._id, new_room._id);
+    await api.addChatRooms(req.session.user.id, new_room._id);
+  }
+  // res.redirect("/chat");
 });
 
 module.exports = router;

@@ -1,0 +1,247 @@
+.main_container {
+    width: 80%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%);
+    min-height: 100vh;
+    background-color: white;
+    padding-top: 100px;
+    box-sizing: border-box;
+    font-family: "Oswald", sans-serif;
+}
+
+.setting_edit_photo {
+    margin-top: 20px;
+}
+
+.setting_edit_photo__header {
+    color: rgb(73, 73, 73);
+    font-size: 20px;
+}
+
+.setting_edit_photo__body {
+    margin-top: 10px;
+    display: flex;
+    width: 80%;
+    margin: auto;
+    padding: 10px;
+    background-color: aliceblue;
+}
+
+.container_setting_img {
+    width: 34%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.container_setting_img img {
+    width: 170px;
+    height: 170px;
+}
+
+.container_setting_container_input {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin-left: 10px;
+    width: 66%;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.container_setting_container_input div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    height: 35px;
+    margin-top: 7px;
+    margin-bottom: 7px;
+}
+
+.conteiner_input {
+    width: 100%;
+}
+
+.container_save_and_file {
+    display: flex !important;
+    justify-content: space-between !important;
+    width: 100%;
+}
+
+.conteiner_input_half {
+    width: 48%;
+    box-sizing: border-box;
+}
+
+.btn_url_for_input {
+    height: 100%;
+    width: 10%;
+    background-color: rgb(199, 219, 19);
+    color: rgb(73, 73, 73);
+    font-size: 20px;
+    position: absolute;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 10px 0 0 10px;
+}
+
+#input_url {
+    height: 100%;
+    width: 90%;
+    outline: none;
+    color: rgb(189, 189, 189);
+    box-sizing: border-box;
+    border: 0;
+    border-top: 1px solid rgb(189, 189, 189);
+    border-bottom: 1px solid rgb(189, 189, 189);
+    border-right: 1px solid rgb(189, 189, 189);
+    border-radius: 0 10px 10px 0;
+}
+
+#file {
+    opacity: 0.01;
+    visibility: hidden;
+}
+
+#label_file,
+.btn_save_img {
+    position: absolute;
+    width: 100%;
+    background-color: rgb(199, 219, 19);
+    color: rgb(73, 73, 73);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.btn_save_img {
+    background-color: rgb(126, 219, 19);
+}
+
+#header__setting_img {
+    font-size: 25px;
+    font-family: "Oswald", sans-serif;
+    color: rgb(0, 87, 146);
+}
+
+.conteiner_text_setting {
+    margin: 0 auto;
+    width: 80%;
+    height: 300px;
+    margin-top: 50px;
+}
+
+.conteiner_text_setting_header {
+    font-size: 30px;
+    color: rgb(0, 87, 146);
+    text-align: center;
+    width: 100%;
+    border-bottom: 1px solid rgb(0, 87, 146);
+    padding-bottom: 5px;
+}
+
+.main_container_inputs {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 50px;
+}
+
+.conteiner_inputs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: rgb(0, 87, 146);
+    width: 40%;
+    margin: 10px 5%;
+    box-sizing: border-box;
+    background-color: aliceblue;
+}
+
+.conteiner_inputs div {
+    margin: 10px 5px;
+    /* width: 50%; */
+    box-sizing: border-box;
+}
+
+.conteiner_inputs input {
+    outline: none;
+    background-color: aliceblue;
+    border: 0;
+    border-bottom: 1px solid rgb(0, 87, 146);
+    color: rgb(0, 87, 146);
+}
+
+.container__btn_setting {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+#btn_save_info_profile {
+    background-color: rgb(0, 87, 146);
+    padding: 15px 40px;
+    font-size: 25px;
+    color: white;
+    border-radius: 10px;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+#btn_save_info_profile:hover {
+    transition: 0.5s;
+    background-color: rgb(23, 120, 185);
+}
+
+.container_confirm {
+    /* display: flex; */
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.911);
+    z-index: 20;
+    width: 100vw;
+    height: 100vh;
+    box-sizing: border-box;
+    position: absolute;
+    font-family: "Oswald", sans-serif;
+    color: rgb(23, 120, 185);
+    font-size: 20px;
+}
+
+.confirm {
+    background-color: white;
+    width: 40%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+}
+
+.confirm_inputs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.confirm_inputs input {
+    outline: none;
+    color: rgb(23, 120, 185);
+    border: 0;
+    border-bottom: 1px solid rgb(23, 120, 185);
+}
+
+.confirm_inputs div {
+    margin: 10px;
+}

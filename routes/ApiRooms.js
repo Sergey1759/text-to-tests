@@ -38,7 +38,7 @@ function addUserToChat(IdChat, IdUser) {
 async function getIncludes(arr_includes) {
     let all = await getAll();
     let buf = [];
-    console.log(arr_includes)
+    // console.log(arr_includes)
     for (const one_in_all of all) {
         for (const inc of arr_includes) {
             if ('' + one_in_all._id == inc) {
@@ -48,6 +48,17 @@ async function getIncludes(arr_includes) {
     }
     return Promise.resolve(buf);
 }
+
+async function getIncludesByIdUsers(...arr) {
+    console.log(arr)
+    return ModelChatRooms.find({
+        users: {
+            $in: arr
+        }
+    });
+
+}
+
 
 async function addUser(Room_id, User_id) {
     let m = await ModelChatRooms.findOne({
@@ -65,5 +76,6 @@ module.exports = {
     getIncludes,
     addUserToChat,
     getById,
-    updateChatImg
+    updateChatImg,
+    getIncludesByIdUsers,
 }

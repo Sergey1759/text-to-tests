@@ -1,29 +1,32 @@
 {{>nav}}
-{{#if classs}}
-<div class="my_class">
-    <div class="other">
+<div class="main_container">
+    {{#if classs}}
+    <div class="container_profile">
+
         {{#each classs}}
         <div class="profile">
-            <div class="user_img">
+            <div class="user__img">
                 <img src={{this.photo}} alt="user">
             </div>
             <div class="user_info">
-                <div>{{this.name}}</div>
                 <div>{{this.lastname}}</div>
+                <div>{{this.name}}</div>
                 <div>{{this.email}}</div>
-                <div>{{this.group}}</div>
             </div>
             <div class="control">
                 <input type="hidden" name="classmates_id" id={{this._id}}>
                 <div class="btn_message">
-                    message
+                    Открыть чат
+                </div>
+                <div class="btn_message">
+                    Успешноть
                 </div>
             </div>
         </div>
         {{/each}}
     </div>
+    {{else}}
+    Нажаль зараз немає одногрупників
+    {{/if}}
 </div>
-{{else}}
-Нажаль зараз немає одногрупників
-{{/if}}
 <script src="/javascripts/classmates.js"></script>

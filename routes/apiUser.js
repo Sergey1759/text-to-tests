@@ -117,6 +117,13 @@ exports.addChatRooms = async function (user_id, chat_id) {
   });
 }
 
+exports.updateImg = async function (id, url) {
+  return User.findOneAndUpdate({
+    _id: id
+  }, {
+    photo: url
+  });
+}
 
 function hash(text) {
   return crypto.createHash('sha1')

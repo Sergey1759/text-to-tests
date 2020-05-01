@@ -1,196 +1,73 @@
 {{>nav}}
-<style>
-    .progress_ring__circle {
-        transform-origin: center;
-        transform: rotate(-90deg);
-    }
-
-    .progress_ring__circle2 {
-        transform-origin: center;
-        transform: rotate(-90deg);
-    }
-
-    .container {
-        width: 80%;
-        margin: auto;
-        display: flex;
-        justify-content: center;
-        padding: 30px;
-        height: 100vh;
-        background-color: rgb(255, 255, 255);
-        border-left: 1px solid black;
-    }
-
-    .container_test {
-        display: flex;
-        align-items: center;
-        color: rgba(0, 109, 18, 0.918);
-        font-size: 3em;
-        font-family: sans-serif;
-        width: 100%;
-        height: 150px;
-        padding: 10px;
-        margin-top: 40px;
-        border: 10px solid;
-        border-image-source: linear-gradient(45deg, rgb(0, 143, 104), rgb(250, 224, 66));
-        border-image-slice: 1;
-    }
-
-
-    .svg {
-        position: absolute;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-
-    .container_svg {
-        position: relative;
-        width: 120px;
-        height: 120px;
-    }
-
-    .percent {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        font-size: 0.5em;
-        transform: translate(-50%, -50%);
-    }
-
-    .container_text {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .text {
-        font-size: 0.6em;
-        text-align: center;
-    }
-
-    .rect {
-        width: 20px;
-        height: 20px;
-        background-color: crimson;
-    }
-
-    #r1 {
-        background-color: rgba(68, 0, 255, 0.9);
-    }
-
-    #r2 {
-        background-color: rgba(0, 109, 18, 0.918);
-    }
-
-    #r3 {
-        background-color: rgba(0, 109, 18, 0.918);
-    }
-
-    #r4 {
-        background-color: rgba(0, 109, 18, 0.918);
-    }
-
-
-    .item {
-        display: flex;
-        align-items: center;
-        width: 50%;
-    }
-
-    .top,
-    .bottom {
-        display: flex;
-        margin-left: 30px;
-    }
-
-    .item p {
-        font-size: 0.3em;
-        margin-left: 20px;
-    }
-</style>
-
-<div class="container">
-    <div class="container_test">
-        <div class="text">
-            Database
-        </div>
+<link rel="stylesheet" href="/stylesheets/my_result.css">
+<div class="main_container">
+    <div class="result_container">
         <div class="container_svg">
-            <div class="svg">
-                <svg class="progress_ring" width="120px" height="120px">
-                    <circle class="progress_ring__circle" stroke='' stroke-width="8" cx='60' cy='60' r='52'
-                        fill='transparent' />
-                    <circle class="progress_ring__circle" stroke='' stroke-width="8" cx='60' cy='60' r='52'
-                        fill='transparent' />
-                </svg>
-
-            </div>
-            <div class="svg">
-                <div class="percent">
-                    70%
-                </div>
-                <svg class="progress_ring" width="104px" height="104px">
-                    <circle class="progress_ring__circle" stroke='' stroke-width="8" cx='52' cy='52' r='44'
-                        fill='transparent' />
-                    <circle class="progress_ring__circle" stroke='' stroke-width="8" cx='52' cy='52' r='44'
-                        fill='transparent' />
-                </svg>
-            </div>
-
+            <svg class="progress_ring" width="150px" height="150px">
+                <circle class="progress_ring__circle" stroke='rgb(71, 71, 71)' stroke-width="8" cx='75' cy='75' r='67'
+                    fill='transparent' />
+                <circle class="progress_ring__circle" stroke='rgb(71, 71, 71)' stroke-width="8" cx='75' cy='75' r='67'
+                    fill='transparent' />
+                <circle class="progress_ring__circle" stroke='rgb(71, 71, 71)' stroke-width="8" cx='75' cy='75' r='59'
+                    fill='transparent' />
+                <circle class="progress_ring__circle" stroke='rgb(71, 71, 71)' stroke-width="8" cx='75' cy='75' r='59'
+                    fill='transparent' />
+                <circle class="progress_ring__circle" stroke='rgb(71, 71, 71)' stroke-width="8" cx='75' cy='75' r='51'
+                    fill='transparent' />
+                <circle class="progress_ring__circle" stroke='rgb(71, 71, 71)' stroke-width="8" cx='75' cy='75' r='51'
+                    fill='transparent' />
+                <circle class="progress_ring__circle" stroke='rgb(71, 71, 71)' stroke-width="8" cx='75' cy='75' r='43'
+                    fill='transparent' />
+                <circle class="progress_ring__circle" stroke='rgb(71, 71, 71)' stroke-width="8" cx='75' cy='75' r='43'
+                    fill='transparent' />
+            </svg>
         </div>
+        <div class="main_container_text">
+            <div class="header_text">
+                Психология
+            </div>
+            <div class="container_text">
+                <div class="column_container_text">
+                    <div class="row_container_text">
+                        <div class="row_container_color" id="color_1">
 
-        <div class="container_text">
-
-            <div class="describe">
-                <div class="top">
-                    <div class="item">
-                        <div class="rect" id='r1'></div>
-                        <p> пройдено вопросов 20 из 30</p>
+                        </div>
+                        <div class="row_container_text">
+                            пройдено вопросов 20 из 30
+                        </div>
                     </div>
-                    <div class="item">
-                        <div class="rect" id="r2"></div>
-                        <p> из 20 пройденых вопросов правильных 15</p>
+                    <div class="row_container_text">
+                        <div class="row_container_color" id="color_2">
+
+                        </div>
+                        <div class="row_container_text">
+                            из 20 пройденых вопросов правильных 15
+                        </div>
                     </div>
                 </div>
-                <div class="bottom">
-                    <div class="item">
-                        <div class="rect"></div>
-                        <p> относительный процент прохождения 20%</p>
+                <div class="column_container_text">
+                    <div class="row_container_text">
+                        <div class="row_container_color" id="color_3">
+
+                        </div>
+                        <div class="row_container_text">
+                            относительный процент прохождения 20%
+                        </div>
                     </div>
-                    <div class="item">
-                        <div class="rect"></div>
-                        <p> на 30 процентов лучше чем у остальных</p>
+                    <div class="row_container_text">
+                        <div class="row_container_color" id="color_4">
+
+                        </div>
+                        <div class="row_container_text">
+                            на 30 процентов лучше чем у остальных
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
+        <div class="btn_open_test">
+            Пройти тест
+        </div>
     </div>
 </div>
-
-
-<script>
-    // r = width / 2 -  (stroke-width * 2)
-    let circle = document.querySelectorAll('.progress_ring__circle');
-
-    function setPercent(circle, percent, stroke) {
-        let radius = circle.r.baseVal.value;
-        let circumference = 2 * Math.PI * radius;
-        circle.style.strokeDasharray = `${circumference} ${circumference}`;
-        circle.style.strokeDashoffset = circumference;
-        circle.style.stroke = stroke;
-        let offset = circumference - percent / 100 * circumference;
-        circle.style.strokeDashoffset = offset;
-    }
-    setPercent(circle[0], 100, 'rgba(68, 0, 255, 0.55)');
-    setPercent(circle[1], 66, 'rgba(68, 0, 255, 0.9)');
-
-    setPercent(circle[2], 100, 'rgba(0, 109, 18, 0.55)');
-    setPercent(circle[3], 75, 'rgba(0, 109, 18, 0.918)');
-
-    setPercent(circle[4], 100, 'rgba(28, 50, 255, 0.3)');
-    setPercent(circle[5], 60, 'rgba(28, 50, 255, 0.7)');
-</script>
+<script src="/javascripts/my_result.js"></script>

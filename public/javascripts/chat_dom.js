@@ -41,23 +41,35 @@ setting_header_btn_close.addEventListener('click', () => {
 let container_setting_error = document.getElementsByClassName('container_setting_error')[0];
 let btn_save_img = document.getElementsByClassName('btn_save_img')[0];
 let input_url = document.getElementById('input_url');
-let file = document.getElementById('file');
+
 
 btn_save_img.addEventListener('click', async () => {
     let obj = {};
+    let file = document.getElementById('file');
     obj.count = 0;
     if (input_url.value) {
         obj.count++;
-        obj.elem = input_url.value
+        obj.url = input_url.value
     }
     if (file.files[0]) {
         obj.count++;
-        obj.elem = file.files[0]
+        obj.file = file.files[0]
     }
     if (obj.count == 2) {
         container_setting_error.innerText = "Обновите страницу, и выберите один из вариантов смены фото"
     } else {
-        // now is not created
+        let m = new FormData();
+        if (obj.url) {
+            m.append('url', obj.url);
+        } else {
+            m.append('avatar', file.files[0]);
+        }
+        m.append('room', document.getElementById("RoomID").value);
+        let res = await axios.post(`/chat/update_img`, m);
+        console.log(res)
+        if (res.status == 200) {
+            location.reload();
+        }
     }
 
 });

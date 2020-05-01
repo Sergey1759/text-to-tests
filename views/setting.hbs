@@ -1,9 +1,116 @@
 {{>nav}}
-<link rel='stylesheet' href='/stylesheets/setting.css' />
+<link rel="stylesheet" href="/stylesheets/setting.css">
+<div class="main_container">
+    <div class="setting_edit_photo">
+        <div class="setting_edit_photo__body">
+            <div class="container_setting_img">
+                <img src={{user.photo}} alt="">
+            </div>
 
-<H1>G SDJF JK</H1>
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta iste ipsum error doloremque quia assumenda minus,
-eligendi expedita eius velit maiores nam pariatur autem ducimus, nisi cum distinctio voluptatum sequi.
+            <div class="container_setting_container_input">
+                <div class="conteiner_input" id="header__setting_img">
+                    Поменять фото профиля
+                </div>
+                <div class="conteiner_input">
+                    <div class="btn_url_for_input">url</div>
+                    <input type="text" id="input_url">
+                </div>
+                <div class="container_save_and_file">
+                    <div class="conteiner_input_half">
+                        <label for="file" id="label_file">file</label>
+                        <input type="file" name="setting_img" id="file" accept="image/*" name="avatar">
+                    </div>
+                    <div class="conteiner_input_half">
+                        <div class="btn_save_img">Сохранить</div>
+                    </div>
+                </div>
 
-{{user.name}}
-<img src="{{user.photo}}" alt="">
+            </div>
+        </div>
+        <div class="conteiner_text_setting">
+            <div class="conteiner_text_setting_header">
+                Поменять информацию профиля
+            </div>
+            <div class="main_container_inputs">
+                <div class="conteiner_inputs">
+                    <div class="name">
+                        Имя
+                    </div>
+                    <div class="inputs">
+                        <input type="text" name="name" id="new_name" value={{user.name}}>
+                    </div>
+                </div>
+                <div class="conteiner_inputs">
+                    <div class="name">
+                        Фамилия
+                    </div>
+                    <div class="inputs">
+                        <input type="text" name="" id="new_lastname" value={{user.lastname}}>
+                    </div>
+                </div>
+                <div class="conteiner_inputs">
+                    <div class="name">
+                        Почта
+                    </div>
+                    <div class="inputs">
+                        <input type="email" name="" id="new_email" value={{user.email}}>
+                    </div>
+                </div>
+                <div class="conteiner_inputs">
+                    <div class="name">
+                        Новый пароль
+                    </div>
+                    <div class="inputs">
+                        <input type="password" name="" id="new_password">
+                    </div>
+                </div>
+            </div>
+            <div id="error">
+
+            </div>
+            <div class="container__btn_setting">
+                <div id="btn_save_info_profile">
+                    Сохранить
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container_confirm">
+    <div class="confirm">
+        <div class="confirm_inputs">
+            <div class="confirm_inputs_text">
+                Повторите новый пароль
+            </div>
+            <div class="confirm_inputs_input">
+                <input type="text" name="" id="repeated_pass">
+            </div>
+        </div>
+        <div class="confirm_inputs">
+            <div class="confirm_inputs_text">
+                Введите старый пароль
+            </div>
+            <div class="confirm_inputs_input">
+                <input type="text" name="" id="">
+            </div>
+        </div>
+        <div class="confirm_inputs">
+            <div class="confirm_inputs_text">
+                Проверьте почту, и введите код
+            </div>
+            <div class="confirm_inputs_input">
+                <input type="text" name="" id="">
+            </div>
+        </div>
+        <div class="container__btn_setting">
+            <div id="btn_save_info_profile2">
+                Отправить
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="confirm_name" value={{user.name}}>
+<input type="hidden" id="confirm_lastname" value={{user.lastname}}>
+<input type="hidden" id="confirm_email" value={{user.email}}>
+<script src="/javascripts/setting.js"></script>
