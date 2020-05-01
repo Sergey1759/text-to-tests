@@ -12,6 +12,8 @@ var ApiMessage = require("./ApiMessage");
 var ApiRooms = require("./ApiRooms");
 var ApiSocket = require("./ApiSocket");
 
+var Mailer = require('./MailApi');
+
 var multer = require('multer');
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -156,6 +158,31 @@ router.get("/setting", midleware, async function (req, res, next) {
   res.render("setting", {
     user,
   });
+});
+
+router.post("/setting/updateUserImg", midleware, upload.single("avatar"), async function (req, res, next) {
+  console.log(req.body)
+  console.log(req.file)
+  try {
+    if (req.file) {
+      await api.updateImg(req.body.user_id, '/images/server/' + req.file.filename);
+    } else {
+      await api.updateImg(req.body.user_id, req.body.url);
+    }
+  } catch (err) {
+    res.sendStatus(400);
+  }
+  res.sendStatus(200);
+});
+
+router.post("/setting/confirm", midleware, async function (req, res, next) {
+  try {
+    // await Mailer.sendMail('0000');
+  } catch (e) {
+    console.log(e);
+  }
+  console.log(req.body)
+
 });
 
 router.get("/my_tests/:name", midleware, async function (req, res, next) {

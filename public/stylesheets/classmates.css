@@ -22,6 +22,11 @@
     padding: 10px;
 }
 
+.user__img img {
+   width: 100px;
+   height: 100px;
+}
+
 .profile {
     display: flex;
     align-items: center;

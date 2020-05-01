@@ -55,7 +55,7 @@ btn_save_img.addEventListener('click', async () => {
         obj.count++;
         obj.file = file.files[0]
     }
-    if (obj.count == 2) {
+    if (obj.count == 2 || obj.count == 0) {
         container_setting_error.innerText = "Обновите страницу, и выберите один из вариантов смены фото"
     } else {
         let m = new FormData();
@@ -71,5 +71,4 @@ btn_save_img.addEventListener('click', async () => {
             location.reload();
         }
     }
-
 });

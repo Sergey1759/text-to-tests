@@ -245,3 +245,10 @@
 .confirm_inputs div {
     margin: 10px;
 }
+
+#error {
+    text-align: center;
+    font-size: 25px;
+    margin: 20px 0;
+    color: rgb(255, 115, 0);
+}

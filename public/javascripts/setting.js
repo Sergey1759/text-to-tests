@@ -12,7 +12,7 @@ let confirm_data = {
 
 
 
-btn_save_info_profile.addEventListener('click', () => {
+btn_save_info_profile.addEventListener('click', async () => {
     let form = {
         name: getID('new_name').value,
         lastname: getID('new_lastname').value,
@@ -39,8 +39,14 @@ btn_save_info_profile.addEventListener('click', () => {
     }
     if (counter < 4) {
         container_confirm.style.display = 'flex';
+        console.log('fetch data');
+        let user = {
+            user_id: document.getElementById('user_id').value
+        }
+
+        let m = await axios.post('/setting/confirm', user);
     } else {
-        error.innerText = 'Ничего не поменялось'
+        error.innerText = 'Вы в формах ничего не изменили'
     }
 });
 
@@ -51,7 +57,7 @@ container_confirm.addEventListener('click', e => {
 });
 
 btn_save_info_profile2.addEventListener('click', () => {
-    console.log('fetch data');
+
     let form = {
         name: getID('new_name').value,
         lastname: getID('new_lastname').value,
@@ -89,3 +95,42 @@ function validate_email(email) {
 function validate_password(password) {
     return true
 }
+
+// ---------------------------------save img
+let container_setting_error = document.getElementsByClassName('container_setting_error')[0];
+let btn_save_img = document.getElementsByClassName('btn_save_img')[0];
+let input_url = document.getElementById('input_url');
+
+
+btn_save_img.addEventListener('click', async () => {
+    let obj = {};
+    let file = document.getElementById('file');
+    obj.count = 0;
+    if (input_url.value) {
+        obj.count++;
+        console.log('fddfd1');
+        obj.url = input_url.value
+    }
+    if (file.files[0]) {
+        obj.count++;
+        console.log('fddfd2');
+        obj.file = file.files[0]
+    }
+    if (obj.count == 2 || obj.count == 0) {
+        container_setting_error.innerText = "Обновите страницу, и выберите один из вариантов смены фото"
+    } else {
+        console.log('fddfd');
+        let m = new FormData();
+        if (obj.url) {
+            m.append('url', obj.url);
+        } else {
+            m.append('avatar', file.files[0]);
+        }
+        m.append('user_id', document.getElementById('user_id').value);
+        let res = await axios.post(`/setting/updateUserImg`, m);
+        console.log(res)
+        if (res.status == 200) {
+            location.reload();
+        }
+    }
+});
