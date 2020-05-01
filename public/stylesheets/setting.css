@@ -48,6 +48,7 @@ body {
   }
   
   .flex-outer > li > label{
+    text-align: right;
     flex: 1 0 120px;
     max-width: 300px;
   }
@@ -60,7 +61,7 @@ body {
   .flex-outer li input:not([type='checkbox']),
   .flex-outer li textarea,
   .flex-outer li select {
-    margin-left: 40px;
+    margin-left: 10px;
     margin-top: 0;
     padding: 5px;
     border: 1px solid black;
@@ -88,7 +89,29 @@ body {
   .flex-outer li button:active {
       transform: scale(0.9);
   }
-  img {
+  .flex-outer li img:not([id="upArrow"]){
+      margin-left: 10px;
+      margin-top: 0;
+      padding: 5px;
+      max-width: 50%;
       width: 10%;
       height: 10%;
+      border-radius: 50%;
+      border-style: ridge;
+      border-color: rgb(168, 167, 167);
+  }
+  
+  #upArrow {
+    margin-left: 1%;
+    padding: 1%;
+    border-style: ridge;
+    border-color: rgb(168, 167, 167);
+    cursor: pointer;
+    margin-top: 5%;
+    width: 33px;
+    height: 33px;
+  }
+  #upArrow:active {
+    
+    transform: scale(0.9);
   }
