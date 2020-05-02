@@ -1,4 +1,5 @@
 {{>nav}}
+<link rel="stylesheet" href="/stylesheets/prompt.css">
 <div class="container__chat">
     <input type="hidden" id="userID" value={{userID}}>
     <input type="hidden" id="RoomID" value={{RoomID}}>
@@ -7,7 +8,8 @@
 
     <div class="chats_user">
         <div class="logo_message">
-            <div class="logo_message_img">
+            <div class="logo_message_img prompt" data-value="image">
+
                 <img src={{another_user.photo}}>
             </div>
             <div class="logo_container">
@@ -15,7 +17,7 @@
                     {{another_user.name}} {{another_user.lastname}}
                 </div>
                 {{#if another_user.type}}
-                <div class="logo_message_status">
+                <div class="logo_message_status prompt" data-value="Статус">
                     был в сети {{another_user.online}}
                 </div>
                 {{/if}}
@@ -100,4 +102,5 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.dev.js"></script>
     <script src="/javascripts/chat_dom.js"></script>
+    <script src="/javascripts/prompt.js"></script>
     <script src="/javascripts/socket.js"></script>

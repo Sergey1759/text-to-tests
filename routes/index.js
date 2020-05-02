@@ -177,15 +177,19 @@ router.post("/setting/updateUserImg", midleware, upload.single("avatar"), async 
 
 router.post("/setting/confirm", midleware, async function (req, res, next) {
   let session_user = req.session.user;
+  let random_code = randomCode(10);
+  let updated_user = await api.updateConfirmCode(session_user.id, random_code);
   try {
-    let random_code = randomCode(10);
-    console.log(random_code);
-    // let updated_user = await api.updateConfirmCode(session_user.id, random_code);
-    // await api.updateByIdFromFields(req.session.user.id, 'email',)
-    // await Mailer.sendMail(updated_user.email, random_code);
+    if (req.body.isChangeEmail) {
+      await Mailer.sendMail(req.body.email, random_code);
+    } else {
+      await Mailer.sendMail(updated_user.email, random_code);
+    }
+
   } catch (e) {
     console.log(e);
   }
+  res.sendStatus(200)
 
 });
 

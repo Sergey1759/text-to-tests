@@ -76,7 +76,7 @@
 .logo_message_img img {
   width: 55px;
   height: 55px;
-  margin-right: 10px;
+  /* margin-right: 10px; */
 }
 
 .logo_message_user_name {

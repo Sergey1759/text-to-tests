@@ -42,17 +42,17 @@ btn_save_info_profile.addEventListener('click', async () => {
         if (!change_data.password) {
             getID('repeated_pass').parentElement.parentElement.style.display = 'none';
         }
-        // if (change_data.email) {
-        //     await axios.post('/setting/confirm', {
-        //         isChangeEmail: true
-        //     });
-        // } else {
-        //     await axios.post('/setting/confirm', {
-        //         isChangeEmail: false
-        //     });
-        // }
         container_confirm.style.display = 'flex';
-        // await axios.post('/setting/confirm');
+        if (change_data.email) {
+            await axios.post('/setting/confirm', {
+                isChangeEmail: true,
+                new_email: change_data.email
+            });
+        } else {
+            await axios.post('/setting/confirm', {
+                isChangeEmail: false
+            });
+        }
     } else {
         error.innerText = 'Вы в формах ничего не изменили'
     }
