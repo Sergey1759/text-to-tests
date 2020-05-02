@@ -124,8 +124,27 @@ exports.updateImg = async function (id, url) {
     photo: url
   });
 }
+exports.updateByIdFromFields = async function (id, field, value) {
+  return User.findOneAndUpdate({
+    _id: id
+  }, {
+    [field]: value
+  });
+}
+
+exports.updateConfirmCode = async function (id, code) {
+  return User.findOneAndUpdate({
+    _id: id
+  }, {
+    confirm_code: code
+  });
+}
 
 function hash(text) {
   return crypto.createHash('sha1')
     .update(text).digest('base64')
+}
+
+exports.hash = function (text) {
+  return hash(text);
 }

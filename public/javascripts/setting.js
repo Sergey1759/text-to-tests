@@ -9,7 +9,7 @@ let confirm_data = {
     email: getID('confirm_email').value
 }
 
-
+let change_data = {};
 
 
 btn_save_info_profile.addEventListener('click', async () => {
@@ -23,28 +23,36 @@ btn_save_info_profile.addEventListener('click', async () => {
     let counter = 4;
     if ((form.name != confirm_data.name) && validate_name(form.name)) {
         counter--;
-        console.log(1)
+        change_data.name = form.name;
     }
     if ((form.lastname != confirm_data.lastname) && validate_lastname(form.lastname)) {
         counter--;
-        console.log(2)
+        change_data.lastname = form.lastname;
     }
     if (form.email !== confirm_data.email && validate_email(form.email)) {
         counter--;
-        console.log(3)
+        change_data.email = form.email;
     }
     if (form.password && validate_password(form.password)) {
         counter--;
-        console.log(4)
+        change_data.password = form.password;
     }
+    console.log(change_data);
     if (counter < 4) {
-        container_confirm.style.display = 'flex';
-        console.log('fetch data');
-        let user = {
-            user_id: document.getElementById('user_id').value
+        if (!change_data.password) {
+            getID('repeated_pass').parentElement.parentElement.style.display = 'none';
         }
-
-        let m = await axios.post('/setting/confirm', user);
+        // if (change_data.email) {
+        //     await axios.post('/setting/confirm', {
+        //         isChangeEmail: true
+        //     });
+        // } else {
+        //     await axios.post('/setting/confirm', {
+        //         isChangeEmail: false
+        //     });
+        // }
+        container_confirm.style.display = 'flex';
+        // await axios.post('/setting/confirm');
     } else {
         error.innerText = 'Вы в формах ничего не изменили'
     }
@@ -56,19 +64,53 @@ container_confirm.addEventListener('click', e => {
     }
 });
 
-btn_save_info_profile2.addEventListener('click', () => {
+btn_save_info_profile2.addEventListener('click', async () => {
+    let confirm_inputs_data = {
+        repeated_pass: document.getElementById('repeated_pass').value,
+        old_password: document.getElementById('old_password').value,
+        mail_code: document.getElementById('mail_code').value
+    }
+    if (change_data.password) {
+        if (
+            (confirm_inputs_data.repeated_pass == change_data.password) &&
+            validate_password(confirm_inputs_data.old_password) &&
+            validate_mail_code(confirm_inputs_data.mail_code)
+        ) {
+            let data_post = {};
+            data_post.change_data = change_data;
+            // data_post.repeated_pass = confirm_inputs_data.repeated_pass;
+            data_post.old_password = confirm_inputs_data.old_password;
+            data_post.mail_code = confirm_inputs_data.mail_code;
+            let res = await axios.post('/setting/update', data_post);
+            if (res.status == 200) {
+                location.reload()
+            } else {
+                alert("Не верные данные были введены");
+            }
 
-    let form = {
-        name: getID('new_name').value,
-        lastname: getID('new_lastname').value,
-        email: getID('new_email').value,
-        password: getID('new_password').value,
-    }
-    if (getID('repeated_pass').value == form.password) {
-        alert("OK")
+        } else {
+            alert('Введенные данные не валидны')
+        }
     } else {
-        alert('error')
+        if (validate_password(confirm_inputs_data.old_password) && validate_mail_code(confirm_inputs_data.mail_code)) {
+            let data_post = {};
+            data_post.change_data = change_data;
+            // data_post.repeated_pass = confirm_inputs_data.repeated_pass;
+            data_post.old_password = confirm_inputs_data.old_password;
+            data_post.mail_code = confirm_inputs_data.mail_code;
+            let res = await axios.post('/setting/update', data_post);
+
+            if (res.data.err) {
+                alert(res.data.err);
+            } else {
+                location.reload();
+            }
+
+        } else {
+            alert('Введенные данные не валидны')
+        }
     }
+
 });
 
 function getID(id) {
@@ -93,6 +135,10 @@ function validate_email(email) {
 }
 
 function validate_password(password) {
+    return true
+}
+
+function validate_mail_code(code) {
     return true
 }
 

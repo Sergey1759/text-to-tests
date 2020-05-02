@@ -176,13 +176,41 @@ router.post("/setting/updateUserImg", midleware, upload.single("avatar"), async 
 });
 
 router.post("/setting/confirm", midleware, async function (req, res, next) {
+  let session_user = req.session.user;
   try {
-    // await Mailer.sendMail('0000');
+    let random_code = randomCode(10);
+    console.log(random_code);
+    // let updated_user = await api.updateConfirmCode(session_user.id, random_code);
+    // await api.updateByIdFromFields(req.session.user.id, 'email',)
+    // await Mailer.sendMail(updated_user.email, random_code);
   } catch (e) {
     console.log(e);
   }
-  console.log(req.body)
 
+});
+
+router.post("/setting/update", midleware, async function (req, res, next) {
+  let user = await api.getByID(req.session.user.id);
+  let req_pass_to_hash = await api.hash(req.body.old_password);
+  if (user.password == req_pass_to_hash && user.confirm_code == req.body.mail_code) {
+    for (const iterator in req.body.change_data) {
+      console.log(iterator)
+      if (iterator == 'password') {
+        let hash_new_password = await api.hash(req.body.change_data[iterator]);
+        console.log(hash_new_password);
+      } else {
+        console.log(req.body.change_data[iterator]);
+        await api.updateByIdFromFields(req.session.user.id, iterator, req.body.change_data[iterator]);
+      }
+    }
+    res.send({
+      ок: "всё успешно"
+    });
+  } else {
+    res.send({
+      err: "не правильный пароль либо код"
+    });
+  }
 });
 
 router.get("/my_tests/:name", midleware, async function (req, res, next) {
@@ -463,5 +491,15 @@ router.post("/classmates", midleware, async function (req, res, next) {
   }
   // res.redirect("/chat");
 });
+
+function randomCode(length) {
+  var result = '';
+  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var charactersLength = characters.length;
+  for (var i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
 
 module.exports = router;

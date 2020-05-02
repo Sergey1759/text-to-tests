@@ -17,6 +17,10 @@ var User = new Schema({
   role: 'string',
   chats: Array,
   online: Date,
+  confirm_code: {
+    type: String,
+    default: '1234'
+  },
   result: []
 });
 

@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer');
 
-async function sendMail(code) {
+async function sendMail(email, code) {
     let testEmailAccount = await nodemailer.createTestAccount();
 
     let transporter = nodemailer.createTransport({
@@ -15,7 +15,7 @@ async function sendMail(code) {
 
     let result = await transporter.sendMail({
         from: '"Администрация Mytest.com" <lisichka1759@gmail.com>',
-        to: "sergey.lisitskii@gmail.com",
+        to: `${email}`,
         subject: "Подтверждение из сайта Mytest.com",
         text: "Вы изменяете данные",
         html: `Для подтверждения данных введите ${code}`
