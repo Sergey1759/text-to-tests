@@ -11,7 +11,7 @@
                 <div class="count">300</div>
             </div>
         </div> --}}
-    </a>
+    {{!-- </a> --}}
     {{#each arr}}
     <a href="chat/{{this.chat_id}}" id={{this.chat_id}}>
         <div class="container_chats">
@@ -19,6 +19,12 @@
 
             </div>
             <div class="user_name">{{this.user_name}} {{this.lastname}}</div>
+            {{#if this.new_message}}
+            <div class="new_message_container">
+                <div class="text">новых сообщений</div>
+                <div class="count">{{this.new_message}}</div>
+            </div>
+            {{/if}}
         </div>
     </a>
     {{/each}}

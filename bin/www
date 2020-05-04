@@ -42,6 +42,9 @@ server.on('listening', onListening);
 ///////////////////////////////////////////////////////////////////////////////////////  Socket IO
 var io = socketIO(server);
 var ApiChats = require("../routes/ApiMessage");
+var ApiNewMessage = require("../routes/ApiNewMessage");
+var ApiRooms = require("../routes/ApiRooms");
+var apiUser = require("../routes/apiUser");
 
 const m = (name, text, img, id) => {
   return {
@@ -64,10 +67,28 @@ io.on('connection', socket => {
   });
 
   socket.on('CreateMessage', async data => {
-    console.log(data);
     io.to(data.room).emit('newMessage', m(`${data.user}`, data.text, data.user_img));
     await ApiChats.createMessage(data.room, data.text, data.user, data.room);
-    console.log(data);
+    let room = await ApiRooms.getById(data.room);
+    let user;
+    for (const iterator of room.users) {
+      if ('' + iterator != '' + data.user) {
+        // user = await apiUser.getByID(iterator);
+        // let length_new_message;
+        // for (const iterator of user.new_message) {
+
+        // }
+        let IsNewMessage = await ApiNewMessage.getByChatAndUser(data.room, iterator);
+        if (+IsNewMessage == 0) {
+          NewMessage = await ApiNewMessage.createNewMessage(data.room, iterator);
+        } else {
+          let res = await ApiNewMessage.addCount(IsNewMessage._id, IsNewMessage.count + 1);
+          console.log(res);
+        }
+
+      }
+    }
+    // console.log(user)
   });
 
   socket.on('typing', async data => {

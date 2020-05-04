@@ -21,6 +21,7 @@ var User = new Schema({
     type: String,
     default: '1234'
   },
+  new_message: [],
   result: []
 });
 

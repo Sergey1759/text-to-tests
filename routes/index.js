@@ -14,6 +14,8 @@ var ApiSocket = require("./ApiSocket");
 
 var Mailer = require('./MailApi');
 
+var ApiNewMessage = require('./ApiNewMessage');
+
 var multer = require('multer');
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -303,12 +305,14 @@ router.get("/chat", midleware, async function (req, res, next) {
   let user = await api.getByID(req.session.user.id);
   let user_chats_id = user.chats;
   let user_chats = await ApiRooms.getIncludes(user_chats_id);
-  // console.log(user_chats)
   let arr = [];
+
+  let obj_new_message = await ApiNewMessage.getObjectChatsId(req.session.user.id);
+  console.log(obj_new_message);
+
   for (const iterator of user_chats) {
     let obj = {};
     if (iterator.type == "each other") {
-      // чат группи не заповнюэться покищо треба реалізувати
       obj.chat_id = iterator._id;
       for (const users of iterator.users) {
         if ("" + users != "" + req.session.user.id) {
@@ -317,6 +321,7 @@ router.get("/chat", midleware, async function (req, res, next) {
           obj.lastname = local_user.lastname;
           obj.photo = local_user.photo;
           obj.chat_id = iterator._id;
+          obj.new_message = obj_new_message[iterator._id] == undefined ? false : obj_new_message[iterator._id];
         }
       }
       arr.push(obj);
@@ -324,6 +329,7 @@ router.get("/chat", midleware, async function (req, res, next) {
       obj.chat_id = iterator._id;
       obj.user_name = iterator.name;
       obj.photo = iterator.img;
+      obj.new_message = obj_new_message[iterator._id] == undefined ? false : obj_new_message[iterator._id];
       arr.push(obj);
     }
   }
@@ -340,13 +346,13 @@ router.get("/chat/:id", midleware, async function (req, res, next) {
   let chat = await ApiRooms.getById(RoomID);
   let chat_name = chat.name;
   let users_in_chat = await api.getIncludesID(...chat.users);
-  // console.log(chat);
   let user = await api.getByID(userID);
   let massage = await ApiMessage.getChatByIdPagination(RoomID);
   let obj = {};
   let complete_arr = [];
   let user_img = user.photo;
   let another_user;
+  await ApiNewMessage.reset(RoomID, userID);
   for (const iterator of massage) {
     if (obj[iterator.from] == undefined) {
       let user = await api.getByID(iterator.from);
