@@ -1,8 +1,78 @@
 {{>nav}}
-<div style="background-color: darkslategrey;" style="margin-top: 100px;">
+<link rel="stylesheet" href="/stylesheets/my_result.css">
+<div class="main_container">
     {{#each arr}}
-    <a href=/my_tests/{{this.id}}>
-        <div>{{this.name}}</div>
-    </a>
+    <div class="result_container">
+        <div class="container_svg">
+            <svg class="progress_ring" width="150px" height="150px">
+                <circle class="progress_ring__circle" stroke='rgb(71, 71, 71)' stroke-width="8" cx='75' cy='75' r='67'
+                    fill='transparent' />
+                <circle class="progress_ring__circle" stroke='rgb(71, 71, 71)' stroke-width="8" cx='75' cy='75' r='67'
+                    fill='transparent' />
+                <circle class="progress_ring__circle" stroke='rgb(71, 71, 71)' stroke-width="8" cx='75' cy='75' r='59'
+                    fill='transparent' />
+                <circle class="progress_ring__circle" stroke='rgb(71, 71, 71)' stroke-width="8" cx='75' cy='75' r='59'
+                    fill='transparent' />
+                <circle class="progress_ring__circle" stroke='rgb(71, 71, 71)' stroke-width="8" cx='75' cy='75' r='51'
+                    fill='transparent' />
+                <circle class="progress_ring__circle" stroke='rgb(71, 71, 71)' stroke-width="8" cx='75' cy='75' r='51'
+                    fill='transparent' />
+                <circle class="progress_ring__circle" stroke='rgb(71, 71, 71)' stroke-width="8" cx='75' cy='75' r='43'
+                    fill='transparent' />
+                <circle class="progress_ring__circle" stroke='rgb(71, 71, 71)' stroke-width="8" cx='75' cy='75' r='43'
+                    fill='transparent' />
+            </svg>
+        </div>
+        <div class="main_container_text">
+            <div class="header_text">
+                {{this.name}}
+            </div>
+            <div class="container_text">
+                <div class="column_container_text">
+                    <div class="row_container_text">
+                        <div class="row_container_color" id="color_1">
+
+                        </div>
+                        <div class="row_container_text">
+                            пройдено вопросов 20 из 30
+                        </div>
+                    </div>
+                    <div class="row_container_text">
+                        <div class="row_container_color" id="color_2">
+
+                        </div>
+                        <div class="row_container_text">
+                            из 20 пройденых вопросов правильных 15
+                        </div>
+                    </div>
+                </div>
+                <div class="column_container_text">
+                    <div class="row_container_text">
+                        <div class="row_container_color" id="color_3">
+
+                        </div>
+                        <div class="row_container_text">
+                            относительный процент прохождения 20%
+                        </div>
+                    </div>
+                    <div class="row_container_text">
+                        <div class="row_container_color" id="color_4">
+
+                        </div>
+                        <div class="row_container_text">
+                            на 30 процентов лучше чем у остальных
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href="/my_tests/{{this.id}}">
+            <div class="btn_open_test">
+                Пройти тест
+            </div>
+        </a>
+    </div>
     {{/each}}
 </div>
+
+<script src="/javascripts/my_result.js"></script>

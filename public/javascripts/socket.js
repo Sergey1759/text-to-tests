@@ -7,7 +7,7 @@ let target_img = document.getElementById('target_img');
 
 let typing = document.getElementsByClassName('typing')[0];
 
-isOpenSetting = true;
+isOpenSetting = false;
 
 const user = {
   user: document.getElementById("userID").value,
@@ -15,11 +15,24 @@ const user = {
   user_img: document.getElementById("user_img").value,
   user_name: document.getElementById("user_name").value,
 };
-
+let typing_bool = false;
 socket.on('display', (data) => {
   if (data) {
-    console.log(data);
-    typing.innerText = data.name + ' печатает';
+    // console.log(timer);
+    if (typing_bool) {
+
+    } else {
+      let div = document.createElement('div');
+      div.innerText = data.name + ' печатает';
+      typing.appendChild(div);
+      typing_bool = true;
+      let timer = setTimeout(() => {
+        typing.removeChild(div);
+        typing_bool = false;
+      }, 3000);
+    }
+
+
   } else
     console.log('d')
 })
@@ -82,7 +95,8 @@ document.addEventListener("keydown", function (event) {
         user: user.user_name,
         typing: true,
         room: user.room,
-        user_img: user.user_img
+        user_img: user.user_img,
+        user_id: user.user
       })
     }
   } else {

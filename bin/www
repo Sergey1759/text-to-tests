@@ -93,7 +93,7 @@ io.on('connection', socket => {
 
   socket.on('typing', async data => {
     console.log(data);
-    io.to(data.room).emit('display', m(`${data.user}`, data.text, data.user_img));
+    io.to(data.room).emit('display', m(`${data.user}`, data.text, data.user_img, data.user_id));
   });
 
 });

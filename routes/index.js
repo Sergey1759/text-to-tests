@@ -148,6 +148,7 @@ router.get("/my_tests", midleware, async function (req, res, next) {
       }
     }
   }
+  console.log(arr)
   res.render("my_tests", {
     arr,
     user,
@@ -456,12 +457,12 @@ router.post(
   }
 );
 
-router.get("/my_result", midleware, async function (req, res, next) {
-  let user = await api.getByID(req.session.user.id);
-  res.render("my_result", {
-    user,
-  });
-});
+// router.get("/my_result", midleware, async function (req, res, next) {
+//   let user = await api.getByID(req.session.user.id);
+//   res.render("my_result", {
+//     user,
+//   });
+// });
 
 router.get("/classmates", midleware, async function (req, res, next) {
   let classs = [];

@@ -17,6 +17,12 @@
     display: flex;
 }
 
+.result_container a {
+    text-decoration: none;
+    font-family: 'Inter', sans-serif;
+    color: white;
+}
+
 .container_svg {
     width: 150px;
     height: 150px;
@@ -77,6 +83,7 @@
     font-size: 30px;
     font-weight: bold;
     color: rgb(0, 87, 146);
+    text-transform: capitalize;
 }
 
 #color_1 {
