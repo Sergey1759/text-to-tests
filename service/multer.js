@@ -1,8 +1,8 @@
 var multer = require('multer');
 var path = require('path');
 var fs = require('fs');
-var apiTests = require('./apiTest');
-var group = require('./apiGroup')
+var apiTests = require('../api/ApiTest');
+var group = require('../api/ApiGroup')
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {

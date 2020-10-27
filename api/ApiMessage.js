@@ -1,6 +1,6 @@
 var mongoose = require('mongoose')
 var db = mongoose.connect("mongodb+srv://sergey:root@cluster0-ppek4.mongodb.net/test")
-var ModelMessage = require('./ModelMessage');
+var ModelMessage = require('../model/ModelMessage');
 
 function createMessage(roomID, massage, from, to) {
     message = {

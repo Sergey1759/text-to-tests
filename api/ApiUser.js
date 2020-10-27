@@ -1,8 +1,8 @@
 var mongoose = require('mongoose')
 var crypto = require('crypto')
 var db = mongoose.connect("mongodb+srv://sergey:root@cluster0-ppek4.mongodb.net/test")
-var User = require('./UserModel')
-var group = require('./apiGroup')
+var User = require('../model/ModelUser')
+var group = require('./ApiGroup')
 
 
 exports.createUser = async function (userData) {

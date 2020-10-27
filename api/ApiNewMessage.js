@@ -1,6 +1,6 @@
 var mongoose = require('mongoose')
 var db = mongoose.connect("mongodb+srv://sergey:root@cluster0-ppek4.mongodb.net/test")
-var ModelNewMessage = require('./ModelNewMessage');
+var ModelNewMessage = require('../model/ModelNewMessage');
 
 function createNewMessage(id_chat, id_user) {
     new_message = {

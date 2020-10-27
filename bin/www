@@ -41,10 +41,10 @@ server.on('listening', onListening);
 
 ///////////////////////////////////////////////////////////////////////////////////////  Socket IO
 var io = socketIO(server);
-var ApiChats = require("../routes/ApiMessage");
-var ApiNewMessage = require("../routes/ApiNewMessage");
-var ApiRooms = require("../routes/ApiRooms");
-var apiUser = require("../routes/apiUser");
+var ApiChats = require("../api/ApiMessage");
+var ApiNewMessage = require("../api/ApiNewMessage");
+var ApiRooms = require("../api/ApiRooms");
+var apiUser = require("../api/ApiUser");
 
 const m = (name, text, img, id) => {
   return {

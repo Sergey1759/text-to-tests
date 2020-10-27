@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
-var api = require('./apiUser')
-var group = require('./apiGroup')
-var ApiRooms = require('./ApiRooms')
+var api = require('../api/ApiUser')
+var group = require('../api/ApiGroup')
+var ApiRooms = require('../api/ApiRooms')
 
 /* Создание пользователя */
 router.post('/login', function (req, res, next) {

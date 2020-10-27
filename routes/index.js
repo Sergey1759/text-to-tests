@@ -1,20 +1,19 @@
 var express = require("express");
 var router = express.Router();
 
-var api = require("./apiUser");
-var group = require("./apiGroup");
-var multer_ = require("./multer");
+var api = require("../api/ApiUser");
+var group = require("../api/ApiGroup");
+var multer_ = require("../service/multer");
 
-var apiTest = require("./apiTest");
-var apiGroup = require("./apiGroup");
-var apiTestResult = require("./apiTestResult");
-var ApiMessage = require("./ApiMessage");
-var ApiRooms = require("./ApiRooms");
-var ApiSocket = require("./ApiSocket");
+var apiTest = require("../api/ApiTest");
+var apiGroup = require("../api/ApiGroup");
+var apiTestResult = require("../api/ApiTestResult");
+var ApiMessage = require("../api/ApiMessage");
+var ApiRooms = require("../api/ApiRooms");
 
-var Mailer = require('./MailApi');
+var Mailer = require('../service/MailApi');
 
-var ApiNewMessage = require('./ApiNewMessage');
+var ApiNewMessage = require('../api/ApiNewMessage');
 
 var multer = require('multer');
 var storage = multer.diskStorage({
@@ -34,21 +33,10 @@ var upload = multer({
 router.get("/", async function (req, res, next) {
   let names_group = await apiGroup.getAllForAuth();
   if (req.session.user) {
-    var data = {
-      title: "Express",
-      user: req.session.user,
-    };
     res.redirect("some");
-    // res.render('index', data);
   } else {
-    var data = {
-      title: "Express",
-    };
-    res.render("index", {
-      names_group,
-    });
+    res.render("index", {names_group});
   }
-  // console.log(req.session)
 });
 
 router.get("/addGroup", midleware, isAdmin, async function (req, res, next) {
@@ -108,25 +96,13 @@ async function isAdmin(req, res, next) {
 router.get("/admin", midleware, isAdmin, async function (req, res, next) {
   res.render("admin");
 });
-router.get("/UsersControl", midleware, isAdmin, async function (
-  req,
-  res,
-  next
-) {
+
+router.get("/UsersControl", midleware, isAdmin, async function (req, res, next) {
   let all_users = await api.getAll();
-  console.log(all_users);
-  res.render("UsersControl", {
-    all_users,
-  });
+  res.render("UsersControl", {all_users});
 });
 
-router.post(
-  "/upload",
-  midleware,
-  isAdmin,
-  multer_.midlle_for_multer,
-  async function (req, res, next) {
-    console.log(req.body);
+router.post("/upload", midleware, isAdmin, multer_.midlle_for_multer, async function (req, res, next) {
     multer_.uploading(req);
     res.redirect("/addTest");
   }
@@ -149,10 +125,7 @@ router.get("/my_tests", midleware, async function (req, res, next) {
     }
   }
   console.log(arr)
-  res.render("my_tests", {
-    arr,
-    user,
-  });
+  res.render("my_tests", {arr, user,});
 });
 
 router.get("/setting", midleware, async function (req, res, next) {

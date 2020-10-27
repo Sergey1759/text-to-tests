@@ -1,6 +1,6 @@
 var mongoose = require('mongoose')
 var db = mongoose.connect("mongodb+srv://sergey:root@cluster0-ppek4.mongodb.net/test")
-var Tests = require('./ModelTests');
+var Tests = require('../model/ModelTests');
 
 function createTest(name , arr){
     test = {
