@@ -6,7 +6,8 @@ var group = require('../api/ApiGroup')
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, 'uploads'))
+    console.log(__dirname);
+    cb(null, path.join('./', 'uploads'))
   },
   filename: function (req, file, cb) {
     let name = file.originalname;

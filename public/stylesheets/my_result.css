@@ -21,6 +21,10 @@
     text-decoration: none;
     font-family: 'Inter', sans-serif;
     color: white;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-left: 50px;
 }
 
 .container_svg {

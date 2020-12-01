@@ -29,51 +29,29 @@ var upload = multer({
   storage: storage
 })
 
-/* GET home page. */
 router.get("/", async function (req, res, next) {
   let names_group = await apiGroup.getAllForAuth();
-  if (req.session.user) {
-    res.redirect("some");
-  } else {
-    res.render("index", {names_group});
-  }
+  req.session.user ? res.redirect("some") : res.render("index", {names_group});
 });
 
 router.get("/addGroup", midleware, isAdmin, async function (req, res, next) {
   res.render("addGroup");
 });
+
 router.post("/addGroup", midleware, isAdmin, async function (req, res, next) {
   await apiGroup.createGroup(req.body.name_group);
   res.redirect("/addGroup");
 });
 
 router.get("/some", midleware, async function (req, res, next) {
-  let user = await api.getByID(req.session.user.id);
-  let classs = [];
-  let groupdate = await group.get(user.group);
-  if (groupdate) {
-    let obj = groupdate.students;
-    for (const id of obj) {
-      if (id != user.id && id != false) {
-        let buf = await api.getByID(id);
-        classs.push(buf);
-      }
-    }
-  } else {
-    console.log("error group is not created");
-  }
-  res.render("some", {
-    user,
-    classs,
-  });
-  // res.render('some',{user});
+  let {classmates, user} = await getClassmates(req.session.user.id);
+  classmates.err ? console.log(err) : res.render("some", {user, classmates});
 });
 
 router.get("/addTest", midleware, isAdmin, async function (req, res, next) {
-  let allgroups = await group.getAll();
-  res.render("addTest", {
-    allgroups,
-  });
+  let allGroups = await group.getAll();
+  console.log(allGroups)
+  res.render("addTest", {allGroups});
 });
 
 async function midleware(req, res, next) {
@@ -84,6 +62,7 @@ async function midleware(req, res, next) {
     res.redirect("/");
   }
 }
+
 async function isAdmin(req, res, next) {
   let user = await api.getByID(req.session.user.id);
   if (user.role === "admin") {
@@ -109,36 +88,17 @@ router.post("/upload", midleware, isAdmin, multer_.midlle_for_multer, async func
 );
 
 router.get("/my_tests", midleware, async function (req, res, next) {
-  let user = await api.getByID(req.session.user.id);
-  let my_group = await group.get(req.session.user.group);
-  let tests = my_group.tests;
-  let test = await apiTest.getAll();
-  let arr = [];
-  for (let i = 0; i < tests.length; i++) {
-    for (let j = 0; j < test.length; j++) {
-      if ("" + tests[i] == "" + test[j]._id) {
-        arr.push({
-          id: "" + test[j]._id,
-          name: test[j].name,
-        });
-      }
-    }
-  }
-  console.log(arr)
-  res.render("my_tests", {arr, user,});
+  let {user ,MyTests} = await getAllTestsOfMyGroup(req.session);
+  console.log(MyTests);
+  res.render("my_tests", {MyTests, user});
 });
 
 router.get("/setting", midleware, async function (req, res, next) {
   let user = await api.getByID(req.session.user.id);
-
-  res.render("setting", {
-    user,
-  });
+  res.render("setting", {user});
 });
 
 router.post("/setting/updateUserImg", midleware, upload.single("avatar"), async function (req, res, next) {
-  console.log(req.body)
-  console.log(req.file)
   try {
     if (req.file) {
       await api.updateImg(req.body.user_id, '/images/server/' + req.file.filename);
@@ -161,12 +121,10 @@ router.post("/setting/confirm", midleware, async function (req, res, next) {
     } else {
       await Mailer.sendMail(updated_user.email, random_code);
     }
-
   } catch (e) {
     console.log(e);
   }
   res.sendStatus(200)
-
 });
 
 router.post("/setting/update", midleware, async function (req, res, next) {
@@ -203,19 +161,12 @@ router.get("/my_tests/:name", midleware, async function (req, res, next) {
 });
 
 router.post("/upload_test_result", midleware, async function (req, res, next) {
-  let response_user_result = await api.getByIDandReturnResult(
-    req.session.user.id
-  );
-  let response_Result = await apiTestResult.findUserResult(
-    req.body.idTest,
-    req.session.user.id
-  );
-  let response_checked_test = await apiTest.checkTests(
-    req.body.idTest,
-    req.body.arr
-  );
+  let response_user_result = await api.getByIDandReturnResult(req.session.user.id);
+  let response_Result = await apiTestResult.findUserResult(req.body.idTest, req.session.user.id);
+  let response_checked_test = await apiTest.checkTests(req.body.idTest, req.body.arr);
+  console.log(response_user_result);
 
-  if (response_user_result.length && response_Result[0] != undefined) {
+  if (response_Result.length && response_Result[0] != undefined) {
     for (const obj of response_user_result) {
       if ("" + obj === "" + response_Result[0]._id) {
         let buf_arr = response_Result[0].arr;
@@ -234,45 +185,33 @@ router.post("/upload_test_result", midleware, async function (req, res, next) {
               count: +elem_checked.value,
             });
         }
-        let req_for_attempt = await apiTestResult.insertIdRESULT(
-          response_Result[0]._id,
-          buf_arr
-        );
-        req_for_attempt = req_for_attempt.attempt;
-        await apiTestResult.insertIdAttempt(
-          response_Result[0]._id,
-          ++req_for_attempt
-        );
-        // console.log(buf_arr);
+        console.log(buf_arr)
+        // let req_for_attempt = await apiTestResult.insertIdRESULT(response_Result[0]._id, buf_arr);
+        // req_for_attempt = req_for_attempt.attempt;
+        // await apiTestResult.insertIdAttempt(response_Result[0]._id, ++req_for_attempt);
+
       } else {
         throw new Error(
           "in upload_test_result something is not working correctly"
         );
       }
     }
-  } else {
-    let buf_arr = response_checked_test.map((elem) => {
+  } else { // якщо ще не проходив тест
+    // перетворює масив обєктів з відповдями  { id: 1016, value: false } в число value 0
+    let buf_arr = response_checked_test.map(elem => {
       return {
-        id: elem.id,
+      id: elem.id,
         count: +elem.value,
       };
     });
-    let isCreateResult = await apiTestResult.createUserResult(
-      req.body.idTest,
-      req.session.user.id,
-      buf_arr
-    );
-    // console.log(isCreateResult);
-    let buf_user_result = [];
-    buf_user_result.push(isCreateResult._id);
+
+    let isCreateResult = await apiTestResult.createUserResult( req.body.idTest, req.session.user.id, buf_arr);
+    let buf_arr_ = [...response_user_result];
+    buf_arr_.push(isCreateResult._id);
     await apiTestResult.insertIdAttempt(isCreateResult._id, 1);
-    await api.insertIdRESULT(req.session.user.id, buf_user_result);
+    await api.insertIdRESULT(req.session.user.id, buf_arr_);
   }
-  // console.log(req.body.idTest)
-  // await api.delete_result(req.session.user.id);
-  res.send({
-    m: "hi",
-  });
+  res.send({m: "hi"});
 });
 
 router.get("/chat", midleware, async function (req, res, next) {
@@ -484,6 +423,43 @@ function randomCode(length) {
     result += characters.charAt(Math.floor(Math.random() * charactersLength));
   }
   return result;
+}
+// refactor functions !!!!!!!
+async function getClassmates(userID){
+  let user = await api.getByID(userID);
+  let classmates = [];
+  let group_data = await group.get(user.group);
+  if (group_data) {
+    let students = group_data.students;
+    for (const id of students) {
+      if (id != user.id && id != false) {
+        let buf_data = await api.getByID(id);
+        classmates.push(buf_data);
+      }
+    }
+    return {user , classmates};
+  } else {
+    return {err : "error group is not created"};
+  }
+}
+
+async function getAllTestsOfMyGroup(session){
+  let user = await api.getByID(session.user.id);
+  let my_group = await group.get(session.user.group);
+  let TestsOfMyGroup = my_group.tests;
+  let AllTests = await apiTest.getAll();
+  let MyTests = [];
+  for (let i = 0; i < TestsOfMyGroup.length; i++) {
+    for (let j = 0; j < AllTests.length; j++) {
+      if ("" + TestsOfMyGroup[i] == "" + AllTests[j]._id) {
+        MyTests.push({
+          id: "" + AllTests[j]._id,
+          name: AllTests[j].name,
+        });
+      }
+    }
+  }
+  return {user , MyTests}
 }
 
 module.exports = router;

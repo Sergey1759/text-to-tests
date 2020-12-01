@@ -3,7 +3,7 @@
     
 <form action="/upload" method="post" enctype="multipart/form-data">
     <select name="upload_test_groups" id="grups">
-        {{#each allgroups}}
+        {{#each allGroups}}
         <option value={{this.name}}>{{this.name}}</option>
         {{/each}}
   </select>

@@ -4,6 +4,7 @@ var api = require('../api/ApiUser')
 var group = require('../api/ApiGroup')
 var ApiRooms = require('../api/ApiRooms')
 
+
 /* Создание пользователя */
 router.post('/login', function (req, res, next) {
   if (req.session.user) return res.redirect('/');
